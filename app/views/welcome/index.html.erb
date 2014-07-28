@@ -1,0 +1,13 @@
+<h3>Sign Up with OneFeed</h3>
+<% if @user.errors.present? %>
+  <% @user.errors.full_messages.each do |message| %>
+    <p><%= message %></p>
+  <% end %>
+<% end %>
+<%= form_for @user do |f| %>
+  <%= f.text_field :first_name, placeholder: "first name" %>
+  <%= f.text_field :last_name, placeholder: "last name" %>
+  <%= f.email_field :email, placeholder: "email" %>
+  <%= f.password_field :password, placeholder: "password" %>
+  <%= f.submit "Sign Up" %>
+<% end %>
