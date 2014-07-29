@@ -2,13 +2,40 @@
 <html>
 <head>
   <title>Onefeed</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header>
+  <% if logged_in? %>
+    <nav>
+      <ul>
+        <li><%= link_to "Logout", "/destroy" %></li>
+      </ul>
+    </nav>
+  <% else %>
+    <nav>
+      <ul>
+        <%= form_for @user, :url => {:controller => "sessions", :action => "create"} do |f| %>
+          <li>
+            <%= f.email_field :email, :autofocus => true, :placeholder => "email", :tabindex => 1 %>
+          </li>
+          <li>
+            <%= f.password_field :password, :placeholder => "password", :tabindex => 2 %>
+          </li>
+          <li>
+            <%= f.submit "Login", :tabindex => 3 %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  <% end %>
+</header>
 
-<%= yield %>
+<main>
+  <%= yield %>
+</main>
 
 </body>
 </html>
