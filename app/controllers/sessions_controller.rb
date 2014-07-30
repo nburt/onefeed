@@ -1,13 +1,18 @@
 class SessionsController < ApplicationController
 
+  def new
+    render 'new', layout: 'login'
+  end
+
   def create
-    user = User.find_by(:email => params[:user][:email])
-    if user.present? && user.authenticate(params[:user][:password])
+    user = User.find_by(:email => params[:session][:email])
+    if user.present? && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
       redirect_to feed_path
     else
       session[:user_id] = nil
-      redirect_to root_url, flash: {:login_failure => "Invalid email or password"}
+      flash[:login_error] = "Invalid email or password"
+      render 'new', layout: 'login'
     end
   end
 

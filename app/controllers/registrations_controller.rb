@@ -6,7 +6,7 @@ class RegistrationsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to feed_path
     else
-      render 'welcome/index'
+      render 'welcome/index', layout: 'login'
     end
   end
 

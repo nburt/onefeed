@@ -12,9 +12,11 @@
   <nav>
     <%= link_to image_tag("one_feed_logo.png", class: "site-logo"), root_path %>
     <div class="main-nav-container">
-      <ul>
-        <li><%= link_to "Logout", "/destroy", class: "main-nav-link" %></li>
-      </ul>
+      <% if logged_in? %>
+        <ul>
+          <li><%= link_to "Logout", "/destroy", class: "main-nav-link" %></li>
+        </ul>
+      <% end %>
     </div>
   </nav>
 </header>

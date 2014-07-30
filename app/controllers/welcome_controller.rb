@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
       redirect_to feed_path
     else
       @user = User.new
-      render 'welcome/index', layout: 'homepage'
+      render 'index', layout: 'login'
     end
   end
 

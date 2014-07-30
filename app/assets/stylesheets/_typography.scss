@@ -34,6 +34,14 @@ small, .font_small {font-size: 0.75em;}
   text-align: center;
 }
 
+.main-link {
+  color: $brand-green;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 img, a {
   &:active, &:focus {
     outline-color: $brand-green;

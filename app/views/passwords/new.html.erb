@@ -1,0 +1,6 @@
+<%= flash[:expired_token] %>
+<%= form_for @user, url: "/passwords" do |f| %>
+  <p>Enter your email for more instructions on how to reset your password</p>
+  <%= f.email_field :email, placeholder: "jane@example.com" %>
+  <%= f.submit "Send Email" %>
+<% end %>

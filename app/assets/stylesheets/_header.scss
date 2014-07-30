@@ -3,6 +3,10 @@ header {
   box-shadow: 0 0 1.25px $box-shadow-gray;
   padding: 10px 0 0;
   overflow: hidden;
+
+  .field_with_errors {
+    display: inline-block;
+  }
 }
 
 nav {
@@ -27,14 +31,7 @@ nav {
 .main-nav-container {
   float: right;
   text-align: right;
-  margin-top: 2.2em;
-}
-
-.login-container {
-  @include media($large-screen) {
-    float: right;
-    text-align: right;
-  }
+  margin-top: 1.8em;
 }
 
 .site-logo {

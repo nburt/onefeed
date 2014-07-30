@@ -1,0 +1,19 @@
+<% if flash[:login_error] %>
+  <p><%= flash[:login_error] %></p>
+<% end %>
+<% if flash[:reset_password_email_sent] %>
+  <p class="center"><%= flash[:reset_password_email_sent] %></p>
+<% end %>
+<% if flash[:updated_password] %>
+  <p class="center"><%= flash[:updated_password] %></p>
+<% end %>
+<div class="login-container">
+  <%= form_for :session, :url => {:controller => "sessions", :action => "create"} do |f| %>
+    <%= f.label :email %>
+    <%= f.email_field :email, :autofocus => true, :placeholder => "jane@example.com", :tabindex => 1 %>
+    <%= f.label :password %>
+    <%= f.password_field :password, :placeholder => "secret!", :tabindex => 2 %>
+    <%= f.submit "Login", :tabindex => 3 %>
+  <% end %>
+  <%= link_to "Forgot Your Password?", forgot_password_path, class: "main-link", :tabindex => 4 %>
+</div>

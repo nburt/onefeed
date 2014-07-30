@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+</head>
+<body>
+<h3>Attempted Password Reset for <%= @email %></h3>
+
+<p>Hi <%= @email %>, you are receiving this email because you (or someone else) entered this email address when
+  requesting a password reset.</p>
+
+<p>This email address is not in our database of registered users and therefore the password reset attempt has
+  failed.</p>
+
+<p>If you have an account with OneFeed and were expecting this email, please try again with the email address you used
+  when registering.</p>
+
+<p>If you do not have an account with OneFeed, please ignore this email.</p>
+
+<p>For more information about OneFeed, please visit <%= link_to "www.onefeedapp.com", root_url %></p>
+
+<p>-The OneFeed Team</p>
+</body>
+</html>

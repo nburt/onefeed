@@ -1,0 +1,9 @@
+<p><%= flash[:passwords_dont_match] %></p>
+<%= form_for @user, url: "/passwords", method: :put do |f| %>
+  <%= f.hidden_field :user_information, value: @user_information %>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+  <%= f.submit "Update Password" %>
+<% end %>
