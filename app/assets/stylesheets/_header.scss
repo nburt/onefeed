@@ -2,10 +2,15 @@ header {
   background: $header-gray;
   box-shadow: 0 0 1.25px $box-shadow-gray;
   padding: 10px 0 0;
+  overflow: hidden;
 }
 
 nav {
   @include outer-container;
+  margin-left: 1.25em;
+  @include media($large-screen) {
+    @include outer-container;
+  }
 
   .forgot-password-link {
     margin-right: 4em;
@@ -26,12 +31,18 @@ nav {
 }
 
 .login-container {
-  float: right;
-  text-align: right;
+  @include media($large-screen) {
+    float: right;
+    text-align: right;
+  }
 }
 
 .site-logo {
   margin-top: 1.2em;
+  clear: both;
+  @include media($large-screen) {
+    float: left;
+  }
 }
 
 .main-nav-link {

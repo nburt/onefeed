@@ -1,4 +1,8 @@
 input {
+  width: 20em;
+  @include media($large-screen) {
+    width: auto;
+  }
   border: 1px solid transparent;
   border-radius: 3px;
   color: #666;
@@ -9,13 +13,24 @@ input {
   margin-bottom: .5em;
 
   &:active, &:focus {
-    outline: none;
+    outline-color: $brand-green;
     border: 1px solid $brand-green;
     background-color: rgba($white, 0.8);
   }
 }
 
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  outline: none;
+}
+
 input[type="submit"] {
+  display: block;
+  @include media($large-screen) {
+    display: inline-block;
+  }
+  width: auto;
   background: $brand-green;
   color: $white;
   cursor: pointer;

@@ -33,3 +33,9 @@ small, .font_small {font-size: 0.75em;}
 .center {
   text-align: center;
 }
+
+img, a {
+  &:active, &:focus {
+    outline-color: $brand-green;
+  }
+}

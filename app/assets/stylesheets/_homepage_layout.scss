@@ -10,9 +10,17 @@
 }
 
 .registration-container {
+  margin: 0 0 1em 1em;
+  @include media($large-screen) {
+    margin: 0;
+  }
 }
 
 .homepage-marketing {
+  margin-left: 1.25em;
+  @include media($large-screen) {
+    margin: 0;
+  }
   ul {
     list-style: square;
   }
