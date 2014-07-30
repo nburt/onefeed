@@ -12,9 +12,14 @@
  *
  */
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 @import 'bourbon';
-@import "grid_settings";
 @import 'neat';
+@import "grid_settings";
 @import "reset";
+@import "colors";
 @import "main_layout";
 @import "header";
+@import "forms";
+@import "typography";
+@import "homepage_layout";

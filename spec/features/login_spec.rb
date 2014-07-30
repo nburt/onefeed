@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'visiting homepage and logging in' do
   scenario 'a user can visit the homepage and register, and then logout and log back in' do
     visit '/'
-    within '#registration-container' do
+    within '.registration-container' do
       fill_in 'user[first_name]', with: 'Nathanael'
       fill_in 'user[last_name]', with: 'Burt'
       fill_in 'user[email]', with: 'nate@example.com'
@@ -11,7 +11,6 @@ feature 'visiting homepage and logging in' do
       click_button 'Register'
     end
 
-    expect(page).to have_content 'Welcome to OneFeed'
     click_link 'Logout'
 
     within 'header' do
@@ -25,7 +24,7 @@ feature 'visiting homepage and logging in' do
 
   scenario 'a user cannot login with incorrect credentials' do
     visit '/'
-    within '#registration-container' do
+    within '.registration-container' do
       fill_in 'user[first_name]', with: 'Nathanael'
       fill_in 'user[last_name]', with: 'Burt'
       fill_in 'user[email]', with: 'nate@example.com'
@@ -54,7 +53,7 @@ feature 'visiting homepage and logging in' do
 
   scenario 'a user is redirected to /feed if they visit the root path while logged in' do
     visit '/'
-    within '#registration-container' do
+    within '.registration-container' do
       fill_in 'user[first_name]', with: 'Nathanael'
       fill_in 'user[last_name]', with: 'Burt'
       fill_in 'user[email]', with: 'nate@example.com'
@@ -71,6 +70,6 @@ feature 'visiting homepage and logging in' do
   scenario 'a user cannot visit /feed if they are not logged in' do
     visit '/feed'
     expect(page).to_not have_content 'Logout'
-    expect(page).to have_content 'Sign Up with OneFeed'
+    expect(page).to have_content 'Register with OneFeed'
   end
 end

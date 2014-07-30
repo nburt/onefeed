@@ -1,3 +1,48 @@
+header {
+  background: $header-gray;
+  box-shadow: 0 0 1.25px $box-shadow-gray;
+  padding: 10px 0 0;
+}
+
 nav {
   @include outer-container;
+
+  .forgot-password-link {
+    margin-right: 4em;
+    color: $brand-green;
+    text-decoration: none;
+    transition: color 500ms ease, text-decoration 500ms ease;
+    &:hover {
+      color: $hover-green;
+      text-decoration: underline;
+    }
+  }
+}
+
+.main-nav-container {
+  float: right;
+  text-align: right;
+  margin-top: 2.2em;
+}
+
+.login-container {
+  float: right;
+  text-align: right;
+}
+
+.site-logo {
+  margin-top: 1.2em;
+}
+
+.main-nav-link {
+  border: 1px solid transparent;
+  color: $brand-green;
+  padding: 8px;
+  font-size: 16px;
+  text-decoration: none;
+  &:hover {
+    background: $brand-green;
+    color: $white;
+    padding: 8px;
+  }
 }

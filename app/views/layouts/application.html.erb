@@ -2,35 +2,21 @@
 <html>
 <head>
   <title>Onefeed</title>
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
 </head>
 <body>
 <header>
-  <% if logged_in? %>
-    <nav>
+  <nav>
+    <%= link_to image_tag("one_feed_logo.png", class: "site-logo"), root_path %>
+    <div class="main-nav-container">
       <ul>
-        <li><%= link_to "Logout", "/destroy" %></li>
+        <li><%= link_to "Logout", "/destroy", class: "main-nav-link" %></li>
       </ul>
-    </nav>
-  <% else %>
-    <nav>
-      <ul>
-        <%= form_for @user, :url => {:controller => "sessions", :action => "create"} do |f| %>
-          <li>
-            <%= f.email_field :email, :autofocus => true, :placeholder => "email", :tabindex => 1 %>
-          </li>
-          <li>
-            <%= f.password_field :password, :placeholder => "password", :tabindex => 2 %>
-          </li>
-          <li>
-            <%= f.submit "Login", :tabindex => 3 %>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-  <% end %>
+    </div>
+  </nav>
 </header>
 
 <main>

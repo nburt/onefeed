@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Onefeed</title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
+</head>
+<body>
+<header>
+  <nav>
+    <%= link_to image_tag("one_feed_logo.png", class: "site-logo"), root_path %>
+    <div class="login-container">
+      <%= link_to "Forgot Your Password?", "#", class: "forgot-password-link", :tabindex => 4 %>
+      <%= form_for @user, :url => {:controller => "sessions", :action => "create"} do |f| %>
+        <%= f.email_field :email, :autofocus => true, :placeholder => "email", :tabindex => 1 %>
+        <%= f.password_field :password, :placeholder => "password", :tabindex => 2 %>
+        <%= f.submit "Login", :tabindex => 3 %>
+    <% end %>
+    </div>
+  </nav>
+</header>
+<div class="homepage-wrapper">
+  <div class="homepage-background-fade">
+    <main>
+      <%= yield %>
+    </main>
+  </div>
+</div>
+</body>
+</html>
