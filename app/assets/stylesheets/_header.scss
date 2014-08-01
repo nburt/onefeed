@@ -1,5 +1,5 @@
 header {
-  background: $header-gray;
+  background: $main-gray;
   box-shadow: 0 0 1.25px $box-shadow-gray;
   padding: 10px 0 0;
   overflow: hidden;
@@ -32,6 +32,9 @@ nav {
   float: right;
   text-align: right;
   margin-top: 1.8em;
+  li {
+    display: inline-block;
+  }
 }
 
 .site-logo {

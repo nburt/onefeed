@@ -1,2 +1,6 @@
-<p class="center"><%= flash[:registration_success] %></p>
-<p class="center failure"><%= flash[:registration_failure] %></p>
+<% if flash[:registration_success] %>
+  <p class="center"><%= flash[:registration_success] %></p>
+<% end %>
+<% if flash[:registration_failure] %>
+  <p class="center failure"><%= flash[:registration_failure] %></p>
+<% end %>

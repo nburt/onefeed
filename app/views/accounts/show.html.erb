@@ -1,1 +1,9 @@
-<%= link_to "Add Instagram", "/auth/instagram" %>
+<div class="columns">
+  <div class="link-accounts-container column half">
+    <h4 class="center">Link your networks to begin streaming feeds and interacting with your friends!</h4>
+
+    <div class="networks-container">
+      <%= link_to(image_tag("instagram_logo.png", class: "network-logo"), "/auth/instagram", class: "network-logo-link") %>
+    </div>
+  </div>
+</div>

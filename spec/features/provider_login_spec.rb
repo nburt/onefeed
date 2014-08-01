@@ -6,7 +6,7 @@ feature 'logging in with providers' do
     user = create_user
     login_user(user)
     click_link 'My Account'
-    click_link 'Add Instagram'
+    find('.network-logo-link').click
     expect(page).to have_content 'You have successfully logged in with Instagram'
   end
 
@@ -15,7 +15,7 @@ feature 'logging in with providers' do
     user = create_user
     login_user(user)
     click_link 'My Account'
-    click_link 'Add Instagram'
+    find('.network-logo-link').click
     expect(page).to have_content 'Registration with Instagram failed, please try again'
   end
 end
