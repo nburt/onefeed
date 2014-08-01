@@ -3,7 +3,7 @@ class RegistrationsController < ApplicationController
   def create
     @user = User.new(secure_params)
     if @user.save
-      session[:user_id] = @user.id
+      cookies.signed[:auth_token] = @user.auth_token
       redirect_to feed_path
     else
       render 'welcome/index', layout: 'login'

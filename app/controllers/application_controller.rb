@@ -5,14 +5,26 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :logged_in?
+  before_filter :sign_in_from_cookie
 
   private
+
+  def sign_in_from_cookie
+    user = User.find_by(:auth_token => cookies.signed[:auth_token]) if cookies[:auth_token]
+    if user
+      self.current_user = user
+    end
+  end
+
+  def current_user=(user)
+    session[:user_id] = user.id
+  end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
   def logged_in?
-    !!session[:user_id]
+    !!current_user
   end
 end

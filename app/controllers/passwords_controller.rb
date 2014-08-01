@@ -27,6 +27,8 @@ class PasswordsController < ApplicationController
     if Time.now > expiration_date
       flash[:expired_token] = "Your password reset token has expired. Please request a new one by filling out the form below."
       redirect_to forgot_password_path
+    else
+      render 'edit', layout: 'login'
     end
   rescue ActiveSupport::MessageVerifier::InvalidSignature
     render_404
@@ -41,7 +43,7 @@ class PasswordsController < ApplicationController
       redirect_to new_session_path
     else
       flash[:passwords_dont_match] = "Your password and password confirmation do not match."
-      render 'edit'
+      render 'edit', layout: 'login'
     end
   rescue ActiveSupport::MessageVerifier::InvalidSignature
     render_404

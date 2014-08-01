@@ -1,9 +1,17 @@
-<p><%= flash[:passwords_dont_match] %></p>
-<%= form_for @user, url: "/passwords", method: :put do |f| %>
-  <%= f.hidden_field :user_information, value: @user_information %>
-  <%= f.label :password %>
-  <%= f.password_field :password %>
-  <%= f.label :password_confirmation %>
-  <%= f.password_field :password_confirmation %>
-  <%= f.submit "Update Password" %>
-<% end %>
+<div class="update-password-form-container">
+  <% if flash[:passwords_dont_match] %>
+    <p><%= flash[:passwords_dont_match] %></p>
+  <% end %>
+  <%= form_for @user, url: "/passwords", method: :put do |f| %>
+    <%= f.hidden_field :user_information, value: @user_information %>
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: "secret!" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, placeholder: "secret!" %>
+    </div>
+    <%= f.submit "Update Password" %>
+  <% end %>
+</div>

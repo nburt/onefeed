@@ -37,6 +37,12 @@ describe User do
       user.email = 'nate.com'
       expect(user).to_not be_valid
     end
+  end
 
+  describe "#auth_token" do
+    it 'assigns an auth token to a user on create' do
+      user = User.create!(first_name: 'Nathanael', last_name: 'Burt', email: 'nate@example.com', password: 'password')
+      expect(user.auth_token).to_not be_nil
+    end
   end
 end

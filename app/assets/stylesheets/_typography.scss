@@ -36,6 +36,7 @@ small, .font_small {font-size: 0.75em;}
 
 .main-link {
   color: $brand-green;
+  width: auto;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
@@ -46,4 +47,8 @@ img, a {
   &:active, &:focus {
     outline-color: $brand-green;
   }
+}
+
+.forgot_password_link {
+  margin-bottom: .5em;
 }

@@ -8,4 +8,5 @@ body {
 
 main {
   @include outer-container;
+  overflow: hidden;
 }

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'registration and login' do
   context "visiting the homepage, registering, and logging in" do
-    it 'a user can visit the homepage and register, and then logout and log back in' do
+    scenario 'a user can visit the homepage and register, and then logout and log back in' do
       visit '/'
       within '.registration-container' do
         fill_in 'user[first_name]', with: 'Nathanael'
@@ -170,6 +170,5 @@ feature 'registration and login' do
 
       expect(page).to have_content 'Your password and password confirmation do not match.'
     end
-
   end
 end
