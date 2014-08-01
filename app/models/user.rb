@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   before_create { generate_token(:auth_token) }
 
+  has_many :accounts
+
   has_secure_password
 
   validates_presence_of :first_name, :last_name, :email

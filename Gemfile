@@ -13,9 +13,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'spring', group: :development
 gem 'bourbon', '~> 3.2.3'
 gem 'neat', '~> 1.5.1'
+gem 'omniauth-instagram', '~> 1.0.1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.2'
+  gem 'dotenv-rails', '~> 0.11.1'
 end
 
 group :test do
