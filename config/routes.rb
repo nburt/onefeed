@@ -9,8 +9,12 @@ Rails.application.routes.draw do
   post '/passwords', to: 'passwords#send_email'
   get '/passwords/edit', to: 'passwords#edit', as: :edit_password
   put '/passwords', to: 'passwords#update'
-  get '/account', to: 'accounts#show', as: :account
   get '/auth/instagram/callback', to: 'instagram_registration#create'
 
+  get '/account', to: 'accounts#show', as: :account
+
   get '/feed', to: 'feed#index', as: :feed
+  namespace :api do
+    get '/instagram-initial-feed', to: 'instagram_feed#initial_request'
+  end
 end

@@ -4,3 +4,44 @@
 <% if flash[:registration_failure] %>
   <p class="center failure"><%= flash[:registration_failure] %></p>
 <% end %>
+<div class="feed-container columns">
+  <% if current_user.accounts.empty? %>
+    <p>You don't have any accounts</p>
+  <% else %>
+    <div class="feed-content-container" ng-controller="instagramFeedController as instagram" ng-init="initialInstagramFeed()">
+      <div class="individual-post column two-thirds" ng-repeat="instagramPost in instagramPosts" data-instagram-post-id="{{instagramPost.id}}">
+        <div class="post-main">
+          <div class="post-header">
+            <ul>
+              <li>
+                <a href="http://www.instagram.com/{{instagramPost.user.username}}" target="_blank"><img class="profile-picture" ng-src="{{instagramPost.user.profile_picture}}"/></a>
+              </li>
+              <li>
+                <a href="http://www.instagram.com/{{instagramPost.user.username}}" class="main-link post-link" target="_blank">@{{instagramPost.user.username}}</a>
+              </li>
+              <li>
+                <time>{{instagramPost.created_time * 1000 | fromNow}}</time>
+              </li>
+              <li class="network-logo-container">
+                <%= image_tag("instagram_logo.png", class: "network-logo") %>
+              </li>
+            </ul>
+          </div>
+          <div class="post-content">
+            <ul>
+              <li><img class="instagram-image" ng-src="{{instagramPost.images.standard_resolution.url}}"/></li>
+              <li>{{instagramPost.caption.text}}</li>
+            </ul>
+          </div>
+          <div class="post-interactive">
+            <ul>
+              <li><%= image_tag('comment.svg') %> {{instagramPost.comments.count}}</li>
+              <li><%= image_tag('heart.svg') %> {{instagramPost.likes.count}}</li>
+              <li><a class="main-link post-link" href="{{instagramPost.link}}" target="_blank">View</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

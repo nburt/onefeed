@@ -1,0 +1,48 @@
+.feed-container {
+  overflow: hidden;
+  margin-top: 1em;
+}
+
+.individual-post {
+  background: $main-gray;
+  margin-bottom: .5em;
+  word-wrap: break-word;
+  overflow: hidden;
+  padding: 1em;
+
+  .post-main {
+    li {
+      display: inline-block;
+      margin-left: .25em;
+      &:first-child {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.post-header {
+  border-bottom: 1px solid $background-gray;
+
+  ul {
+    margin-bottom: .5em;
+  }
+
+  .network-logo-container {
+    float: right;
+  }
+}
+
+.post-content {
+  border-bottom: 1px solid $background-gray;
+
+  ul {
+    margin: .75em 0 .5em;
+  }
+}
+
+.post-interactive {
+  ul {
+    margin-top: .5em;
+  }
+}

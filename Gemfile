@@ -14,6 +14,8 @@ gem 'spring', group: :development
 gem 'bourbon', '~> 3.2.3'
 gem 'neat', '~> 1.5.1'
 gem 'omniauth-instagram', '~> 1.0.1'
+gem 'angularjs-rails', '~> 1.2.20'
+gem 'typhoeus', '~> 0.6.9'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.2'
@@ -22,6 +24,9 @@ end
 
 group :test do
   gem 'capybara', '~> 2.4.1'
+  gem 'webmock', '~> 1.18.0'
+  gem 'selenium-webdriver', '~> 2.42.0'
+  gem 'database_cleaner', '~> 1.3.0'
 end
 
 group :production do
