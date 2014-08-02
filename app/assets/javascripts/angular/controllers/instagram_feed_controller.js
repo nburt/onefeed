@@ -1,13 +1,14 @@
 (function () {
   var app = angular.module('onefeed', []);
 
+
   app.filter('fromNow', function () {
-    return function(date) {
+    return function (date) {
       return moment(date).fromNow();
     }
   });
 
-  app.controller('instagramFeedController', function ($scope, $http) {
+  app.controller('instagramFeedController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.instagramPosts = [];
 
@@ -16,5 +17,5 @@
         $scope.instagramPosts = response.data;
       });
     };
-  });
+  }]);
 })();
