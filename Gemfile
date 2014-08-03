@@ -20,6 +20,7 @@ gem 'typhoeus', '~> 0.6.9'
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.2'
   gem 'dotenv-rails', '~> 0.11.1'
+  gem 'jasmine', '~> 2.0.2'
 end
 
 group :test do

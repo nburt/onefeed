@@ -1,7 +1,6 @@
 (function () {
   var app = angular.module('onefeed', []);
 
-
   app.filter('fromNow', function () {
     return function (date) {
       return moment(date).fromNow();

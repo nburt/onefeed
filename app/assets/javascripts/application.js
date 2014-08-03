@@ -11,7 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require moment.js
 //= require jquery_ujs
 //= require angular
+//= require moment.js
 //= require_tree .
