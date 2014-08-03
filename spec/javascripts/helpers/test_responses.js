@@ -517,5 +517,15 @@ var testResponses = {
         }
       ]
     }
+  },
+  instagramInitialFeedError: {
+    status: 400,
+    body: {
+      "meta": {
+        "error_type": "OAuthParameterException",
+        "code": 400,
+        "error_message": "The access_token provided is invalid."
+      }
+    }
   }
 };

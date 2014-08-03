@@ -10,11 +10,30 @@ describe "getting a user's instagram timeline" do
 
       user = create_user
       create_instagram_account(user)
-      post '/sessions', {"utf8" => "✓", "authenticity_token" => "iiSX8wJWGDOGPcxjst8Fb1CptcE518hrjq+vIM1XeIk=", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
       get '/api/instagram-initial-feed'
-      expected_response = body
       expect(response.status).to eq 200
-      expect(response.body).to eq expected_response
+      expect(response.body).to eq body
+    end
+
+    it 'will return an error if a request is made with an invalid token' do
+      body = {
+        "meta" => {
+          "error_type" => "OAuthParameterException",
+          "code" => 400,
+          "error_message" => "The access_token provided is invalid."
+        }
+      }.to_json
+
+      stub_request(:get, "https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5").
+        to_return(status: 400, body: body)
+
+      user = create_user
+      create_instagram_account(user)
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/instagram-initial-feed'
+      expect(response.status).to eq 400
+      expect(response.body).to eq body
     end
   end
 end

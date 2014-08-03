@@ -17,5 +17,6 @@ feature 'logging in with providers' do
     click_link 'My Account'
     find('.network-logo-link').click
     expect(page).to have_content 'Registration with Instagram failed, please try again'
+    expect(page).to_not have_content 'You have successfully logged in with Instagram'
   end
 end

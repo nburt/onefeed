@@ -1,15 +1,15 @@
-<% if flash[:registration_success] %>
-  <p class="center"><%= flash[:registration_success] %></p>
-<% end %>
-<% if flash[:registration_failure] %>
-  <p class="center failure"><%= flash[:registration_failure] %></p>
-<% end %>
 <div class="feed-container columns">
+  <% if flash[:registration_failure] %>
+    <p class="center failure"><%= flash[:registration_failure] %></p>
+  <% end %>
   <% if current_user.accounts.empty? %>
     <p>You don't have any accounts</p>
   <% else %>
     <div class="feed-content-container" ng-controller="instagramFeedController as instagram" ng-init="initialInstagramFeed()">
-      <div class="individual-post column two-thirds" ng-repeat="instagramPost in instagramPosts" data-instagram-post-id="{{instagramPost.id}}">
+      <% if flash[:registration_success] %>
+        <p class="center" ng-if="instagramPosts.status === 200"><%= flash[:registration_success] %></p>
+      <% end %>
+      <div class="individual-post column two-thirds" ng-repeat="instagramPost in instagramPosts.body" data-instagram-post-id="{{instagramPost.id}}" ng-if="instagramPosts.status === 200">
         <div class="post-main">
           <div class="post-header">
             <ul>
@@ -43,6 +43,9 @@
             </ul>
           </div>
         </div>
+      </div>
+      <div ng-if="instagramPosts.status === 400">
+        <p>Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page.</p>
       </div>
     </div>
   <% end %>
