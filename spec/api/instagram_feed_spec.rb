@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "getting a user's instagram timeline" do
-  describe "get '/api/instagram-initial-feed'" do
+  describe "get '/api/feed'" do
     it 'should get the latest 5 posts for a user' do
       body = File.read("./spec/support/instagram_responses/timeline_response_count_5.json")
 
@@ -11,7 +11,7 @@ describe "getting a user's instagram timeline" do
       user = create_user
       create_instagram_account(user)
       post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
-      get '/api/instagram-initial-feed'
+      get '/api/feed'
       expect(response.status).to eq 200
       expect(response.body).to eq body
     end
@@ -31,7 +31,7 @@ describe "getting a user's instagram timeline" do
       user = create_user
       create_instagram_account(user)
       post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
-      get '/api/instagram-initial-feed'
+      get '/api/feed'
       expect(response.status).to eq 400
       expect(response.body).to eq body
     end

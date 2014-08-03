@@ -1,4 +1,4 @@
-describe("instagramFeedController", function () {
+describe("FeedController", function () {
 
   describe("getting the initial feed", function () {
     var $rootScope, $httpBackend;
@@ -10,7 +10,7 @@ describe("instagramFeedController", function () {
       $rootScope = $injector.get('$rootScope');
       var $controller = $injector.get('$controller');
       createController = function () {
-        return $controller('instagramFeedController', {$scope: $rootScope});
+        return $controller('FeedController', {$scope: $rootScope});
       };
     }));
 
@@ -20,23 +20,23 @@ describe("instagramFeedController", function () {
     });
 
     it("makes an initial request for the feed", function () {
-      $httpBackend.when('GET', '/api/instagram-initial-feed').respond(200, testResponses.instagramInitialFeed.body);
+      $httpBackend.when('GET', '/api/feed').respond(200, testResponses.instagramInitialFeed.body);
       createController();
-      expect($rootScope.instagramPosts).toEqual([]);
-      $httpBackend.expectGET('/api/instagram-initial-feed');
-      $rootScope.initialInstagramFeed();
+      expect($rootScope.posts).toEqual([]);
+      $httpBackend.expectGET('/api/feed');
+      $rootScope.initialFeed();
       $httpBackend.flush();
-      expect($rootScope.instagramPosts).toEqual({status: 200, body: testResponses.instagramInitialFeed.body.data});
+      expect($rootScope.posts).toEqual({status: 200, body: testResponses.instagramInitialFeed.body.data});
     });
 
     it("will return an error message if a user's access token is invalid", function () {
-      $httpBackend.when('GET', '/api/instagram-initial-feed').respond(400, testResponses.instagramInitialFeedError.body);
+      $httpBackend.when('GET', '/api/feed').respond(400, testResponses.instagramInitialFeedError.body);
       createController();
-      expect($rootScope.instagramPosts).toEqual([]);
-      $httpBackend.expectGET('/api/instagram-initial-feed');
-      $rootScope.initialInstagramFeed();
+      expect($rootScope.posts).toEqual([]);
+      $httpBackend.expectGET('/api/feed');
+      $rootScope.initialFeed();
       $httpBackend.flush();
-      expect($rootScope.instagramPosts).toEqual({
+      expect($rootScope.posts).toEqual({
         status: 400,
         body: "Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page."
       });

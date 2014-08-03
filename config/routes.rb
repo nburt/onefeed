@@ -15,6 +15,6 @@ Rails.application.routes.draw do
 
   get '/feed', to: 'feed#index', as: :feed
   namespace :api do
-    get '/instagram-initial-feed', to: 'instagram_feed#initial_request'
+    get '/feed', to: 'feed#create'
   end
 end

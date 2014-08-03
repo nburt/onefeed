@@ -7,17 +7,17 @@
     }
   });
 
-  app.controller('instagramFeedController', ['$scope', '$http', function ($scope, $http) {
+  app.controller('FeedController', ['$scope', '$http', function ($scope, $http) {
 
-    $scope.instagramPosts = [];
+    $scope.posts = [];
 
-    $scope.initialInstagramFeed = function () {
-      $http.get('/api/instagram-initial-feed').
+    $scope.initialFeed = function () {
+      $http.get('/api/feed').
         success(function (response) {
-          $scope.instagramPosts = {status: 200, body: response.data};
+          $scope.posts = {status: 200, body: response.data};
         }).
         error(function () {
-          $scope.instagramPosts = {
+          $scope.posts = {
             status: 400,
             body: "Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page."
           }
