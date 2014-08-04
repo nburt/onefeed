@@ -1,6 +1,6 @@
 .feed-container {
   overflow: hidden;
-  margin-top: 1em;
+  margin: 1em 0 5em 0;
 }
 
 .individual-post {
@@ -9,6 +9,10 @@
   word-wrap: break-word;
   overflow: hidden;
   padding: 1em;
+
+  &:last-child {
+    margin-bottom: 2em;
+  }
 
   .post-main {
     li {
@@ -50,5 +54,19 @@
 .post-interactive {
   ul {
     margin-top: .5em;
+  }
+}
+
+.load-more-container {
+  background: $main-gray;
+  padding: 1em;
+  text-align: center;
+  a {
+    color: $brand-green;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+      color: $hover-green;
+    }
   }
 }

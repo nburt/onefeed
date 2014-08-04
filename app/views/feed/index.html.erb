@@ -44,6 +44,9 @@
           </div>
         </div>
       </div>
+      <div class="column two-thirds load-more-container" ng-if="posts.status === 200">
+        <a ng-click="nextFeed()" class="load-more-link">Load more posts</a>
+      </div>
       <div ng-if="posts.status === 400">
         <p class="center">Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page.</p>
       </div>
