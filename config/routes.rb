@@ -15,6 +15,6 @@ Rails.application.routes.draw do
 
   get '/feed', to: 'feed#index', as: :feed
   namespace :api do
-    get '/feed', to: 'feed#create'
+    get '/feed', to: 'feed#index'
   end
 end

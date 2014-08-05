@@ -27,7 +27,7 @@ describe("FeedController", function () {
       $rootScope.initialFeed();
       $httpBackend.flush();
       expect($rootScope.posts).toEqual({
-        status: 200,
+        success: true,
         body: testResponses.instagramInitialFeed.body.data,
         pagination: testResponses.instagramInitialFeed.body.pagination.next_max_id
       });
@@ -41,7 +41,7 @@ describe("FeedController", function () {
       $rootScope.initialFeed();
       $httpBackend.flush();
       expect($rootScope.posts).toEqual({
-        status: 400,
+        success: false,
         body: "Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page."
       });
     });
@@ -51,7 +51,7 @@ describe("FeedController", function () {
       createController();
 
       $rootScope.posts = {
-        status: 200,
+        success: true,
         body: testResponses.instagramInitialFeed.body.data,
         pagination: testResponses.instagramInitialFeed.body.pagination.next_max_id
       };
@@ -66,7 +66,7 @@ describe("FeedController", function () {
       $rootScope.nextFeed('/api/feed?instagram=776999430264003590_1081226094');
       $httpBackend.flush();
       expect($rootScope.posts).toEqual({
-        status: 200,
+        success: true,
         body: body,
         pagination: testResponses.instagramNextFeed.body.pagination.next_max_id
       });

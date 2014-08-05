@@ -5,50 +5,50 @@
   <% if current_user.accounts.empty? %>
     <p>You don't have any accounts</p>
   <% else %>
-    <div class="feed-content-container" ng-controller="FeedController as feed" ng-init="initialFeed()">
-      <% if flash[:registration_success] %>
-        <p class="center" ng-if="posts.status === 200"><%= flash[:registration_success] %></p>
-      <% end %>
-      <div class="individual-post column two-thirds" ng-repeat="post in posts.body" data-instagram-post-id="{{post.id}}" ng-if="posts.status === 200">
-        <div class="post-main">
-          <div class="post-header">
-            <ul>
-              <li>
-                <a href="http://www.instagram.com/{{post.user.username}}" target="_blank">
-                  <img class="profile-picture" ng-src="{{post.user.profile_picture}}"/>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.instagram.com/{{post.user.username}}" class="main-link post-link" target="_blank">@{{post.user.username}}</a>
-              </li>
-              <li>
-                <time>{{post.created_time * 1000 | fromNow}}</time>
-              </li>
-              <li class="network-logo-container">
-                <%= image_tag("instagram_logo.png", class: "network-logo") %>
-              </li>
-            </ul>
-          </div>
-          <div class="post-content">
-            <ul>
-              <li><img class="instagram-image" ng-src="{{post.images.standard_resolution.url}}"/></li>
-              <li>{{post.caption.text}}</li>
-            </ul>
-          </div>
-          <div class="post-interactive">
-            <ul>
-              <li><%= image_tag('comment.svg') %> {{post.comments.count}}</li>
-              <li><%= image_tag('heart.svg') %> {{post.likes.count}}</li>
-              <li><a class="main-link post-link" href="{{post.link}}" target="_blank">View</a></li>
-            </ul>
+    <div ng-controller="FeedController as feed" ng-init="initialFeed()">
+      <div class="feed-content-container" ng-if="posts.success">
+        <div class="individual-post column two-thirds" ng-repeat="post in posts.body" data-instagram-post-id="{{post.id}}">
+          <div class="post-main">
+            <div class="post-header">
+              <ul>
+                <li>
+                  <a href="http://www.instagram.com/{{post.user.username}}" target="_blank">
+                    <img class="profile-picture" ng-src="{{post.user.profile_picture}}"/>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.instagram.com/{{post.user.username}}" class="main-link post-link" target="_blank">@{{post.user.username}}</a>
+                </li>
+                <li>
+                  <time>{{post.created_time * 1000 | fromNow}}</time>
+                </li>
+                <li class="network-logo-container">
+                  <%= image_tag("instagram_logo.png", class: "network-logo") %>
+                </li>
+              </ul>
+            </div>
+            <div class="post-content">
+              <ul>
+                <li><img class="instagram-image" ng-src="{{post.images.standard_resolution.url}}"/></li>
+                <li>{{post.caption.text}}</li>
+              </ul>
+            </div>
+            <div class="post-interactive">
+              <ul>
+                <li><%= image_tag('comment.svg') %> {{post.comments.count}}</li>
+                <li><%= image_tag('heart.svg') %> {{post.likes.count}}</li>
+                <li><a class="main-link post-link" href="{{post.link}}" target="_blank">View</a></li>
+              </ul>
+            </div>
           </div>
         </div>
+        <div class="column two-thirds load-more-container">
+          <a ng-click="nextFeed()" class="load-more-link">Load more posts</a>
+        </div>
       </div>
-      <div class="column two-thirds load-more-container" ng-if="posts.status === 200">
-        <a ng-click="nextFeed()" class="load-more-link">Load more posts</a>
-      </div>
-      <div ng-if="posts.status === 400">
-        <p class="center">Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page.</p>
+      <div class="feed-content-container" ng-if="posts.success === false">
+        <p class="center">Your account is no longer authorized. Please reauthorize your Instagram account by visiting
+          your account page.</p>
       </div>
     </div>
   <% end %>

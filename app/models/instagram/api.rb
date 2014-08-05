@@ -6,13 +6,18 @@ module Instagram
     end
 
     def feed(max_id = nil)
-      user_account = @user.accounts.find_by(provider: "instagram")
-      token = user_account.access_token
+      token = @user.accounts.find_by(provider: "instagram").access_token
       if max_id.nil?
-        Typhoeus.get("https://api.instagram.com/v1/users/self/feed?access_token=#{token}&count=5")
+        Typhoeus.get("#{base_url(token)}&count=5")
       else
-        Typhoeus.get("https://api.instagram.com/v1/users/self/feed?access_token=#{token}&count=25&max_id=#{max_id}")
+        Typhoeus.get("#{base_url(token)}&count=25&max_id=#{max_id}")
       end
+    end
+
+    private
+
+    def base_url(token)
+      "https://api.instagram.com/v1/users/self/feed?access_token=#{token}"
     end
 
   end
