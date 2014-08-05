@@ -1,13 +1,11 @@
 (function () {
-  var app = angular.module('onefeed', []);
-
-  app.filter('fromNow', function () {
+  App.filter('fromNow', function () {
     return function (date) {
       return moment(date).fromNow();
     };
   });
 
-  app.controller('FeedController', ['$scope', '$http', function ($scope, $http) {
+  App.controller('FeedController', ['$scope', '$http', function ($scope, $http) {
 
     $scope.posts = {};
 
@@ -26,7 +24,7 @@
 
     $scope.nextFeed = function () {
       var url = "/api/feed?instagram=" + $scope.posts.pagination;
-      $http.get(url).success(function(data) {
+      $http.get(url).success(function (data) {
         $scope.posts.success = true;
         for (var i = 0; i < data.data.length; i++) {
           $scope.posts.body.push(data.data[i]);

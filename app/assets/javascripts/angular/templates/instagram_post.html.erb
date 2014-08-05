@@ -1,0 +1,33 @@
+<div class="post-main">
+  <div class="post-header">
+    <ul>
+      <li>
+        <a href="http://www.instagram.com/{{post.user.username}}" target="_blank">
+          <img class="profile-picture" ng-src="{{post.user.profile_picture}}"/>
+        </a>
+      </li>
+      <li>
+        <a href="http://www.instagram.com/{{post.user.username}}" class="main-link post-link" target="_blank">@{{post.user.username}}</a>
+      </li>
+      <li>
+        <time>{{post.created_time * 1000 | fromNow}}</time>
+      </li>
+      <li class="network-logo-container">
+        <%= image_tag("instagram_logo.png", class: "network-logo") %>
+      </li>
+    </ul>
+  </div>
+  <div class="post-content">
+    <ul>
+      <li><img class="instagram-image" ng-src="{{post.images.standard_resolution.url}}"/></li>
+      <li>{{post.caption.text}}</li>
+    </ul>
+  </div>
+  <div class="post-interactive">
+    <ul>
+      <li><%= image_tag("comment.svg") %> {{post.comments.count}}</li>
+      <li><%= image_tag("heart.svg") %> {{post.likes.count}}</li>
+      <li><a class="main-link post-link" href="{{post.link}}" target="_blank">View</a></li>
+    </ul>
+  </div>
+</div>

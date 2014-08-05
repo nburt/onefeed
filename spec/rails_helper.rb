@@ -20,3 +20,7 @@ end
 OmniAuth.config.test_mode = true
 
 WebMock.disable_net_connect!(:allow_localhost => true)
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
