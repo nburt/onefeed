@@ -16,3 +16,4 @@ SENDGRID_USERNAME:<YOUR SENDGRID USERNAME>
 
 1. `bundle install`
 1. Run Ruby tests using `rspec` or `rake spec`
+1. Run `rake jasmine` and then visit `localhost:8888` to run the Jasmine JavaScript tests
