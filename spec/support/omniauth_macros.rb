@@ -39,5 +39,16 @@ module OmniauthMacros
         'token' => 'mock_token'
       }
     }
+
+    OmniAuth.config.mock_auth[:twitter] = {
+      'provider' => 'twitter',
+      'info' => {
+        'name' => 'mockuser',
+        'image' => 'mock_user_thumbnail_url'
+      },
+      'credentials' => {
+        'token' => 'mock_token',
+      },
+    }
   end
 end
