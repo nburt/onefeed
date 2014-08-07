@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/passwords/edit', to: 'passwords#edit', as: :edit_password
   put '/passwords', to: 'passwords#update'
   get '/auth/instagram/callback', to: 'instagram_registration#create'
+  get '/auth/twitter/callback', to: 'twitter_registration#create'
 
   get '/account', to: 'accounts#show', as: :account
 

@@ -14,6 +14,7 @@ gem 'spring', group: :development
 gem 'bourbon', '~> 3.2.3'
 gem 'neat', '~> 1.5.1'
 gem 'omniauth-instagram', '~> 1.0.1'
+gem 'omniauth-twitter', '~> 1.0.1'
 gem 'angularjs-rails', '~> 1.2.20'
 gem 'typhoeus', '~> 0.6.9'
 

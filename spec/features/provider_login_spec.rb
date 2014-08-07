@@ -6,8 +6,16 @@ feature 'logging in with providers' do
     user = create_user
     login_user(user)
     click_link 'My Account'
-    find('.network-logo-link').click
+    find(:xpath, "//a[contains(@href,'/auth/instagram')]").click
     expect(page).to have_content 'Registration with Instagram failed, please try again'
-    expect(page).to_not have_content 'You have successfully logged in with Instagram'
+  end
+
+  scenario 'a user can login with Twitter' do
+    mock_auth_hash
+    user = create_user
+    login_user(user)
+    click_link 'My Account'
+    find(:xpath, "//a[contains(@href,'/auth/twitter')]").click
+    expect(page).to have_content 'You have successfully logged in with Twitter'
   end
 end
