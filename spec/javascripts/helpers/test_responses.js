@@ -518,7 +518,7 @@ var testResponses = {
       ]
     }
   },
-  instagramInitialFeedError: {
+  instagramFeedError: {
     status: 400,
     body: {
       "meta": {
