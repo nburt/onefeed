@@ -8,6 +8,7 @@ class Account < ActiveRecord::Base
     account.provider = auth["provider"]
     account.uid = auth["uid"]
     account.access_token = auth["credentials"]["token"]
+    account.access_token_secret = auth["credentials"]["secret"]
     account.user_id = user.id
     account.save!
     account

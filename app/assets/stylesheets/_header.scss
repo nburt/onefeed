@@ -48,12 +48,12 @@ nav {
 .main-nav-link {
   border: 1px solid transparent;
   color: $brand-green;
-  padding: 8px 8px 2px 8px;
+  padding: 3px 3px 3px 3px;
   font-size: 16px;
   text-decoration: none;
   &:hover {
     background: $brand-green;
     color: $white;
-    padding: 8px 8px 2px 8px;
+    padding: 3px 3px 3px 3px;
   }
 }

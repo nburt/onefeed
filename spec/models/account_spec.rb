@@ -53,6 +53,23 @@ describe Account do
       }
       expect{Account.update_or_create_with_omniauth(user, auth)}.to raise_error ActiveRecord::RecordInvalid
     end
+
+    it 'can create an account for a twitter' do
+      user = create_user
+      auth = {
+        "provider" => "twitter",
+        "uid" => "1234",
+        "credentials" => {
+          "token" => "mock_token",
+          "secret" => "mock_token_secret"
+        }
+      }
+
+      account = Account.update_or_create_with_omniauth(user, auth)
+
+      expect(account.access_token_secret).to eq "mock_token_secret"
+      expect(account.access_token).to eq "mock_token"
+    end
   end
 
   describe "validations" do
