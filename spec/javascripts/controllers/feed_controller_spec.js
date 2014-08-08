@@ -22,7 +22,9 @@ describe("FeedController", function () {
     describe("getting the initial feed", function () {
 
       it("makes an initial request for the feed", function () {
-        $httpBackend.when('GET', '/api/feed').respond(200, testResponses.instagramInitialFeed.body);
+        $httpBackend.when('GET', '/api/feed').respond(
+          200, {timeline: testResponses.instagramInitialFeed.body, status: {instagram: 200}}
+        );
         createController();
         expect($rootScope.posts).toEqual({});
         $httpBackend.expectGET('/api/feed');
@@ -36,7 +38,9 @@ describe("FeedController", function () {
       });
 
       it("will return an error message if a user's access token is invalid", function () {
-        $httpBackend.when('GET', '/api/feed').respond(400, testResponses.instagramFeedError.body);
+        $httpBackend.when('GET', '/api/feed').respond(
+          400, {timeline: testResponses.instagramFeedError.body, status: {instagram: 400}}
+        );
         createController();
         expect($rootScope.posts).toEqual({});
         $httpBackend.expectGET('/api/feed');
@@ -52,7 +56,9 @@ describe("FeedController", function () {
     describe("getting subsequent feeds", function () {
 
       it("will make a request for 25 more posts when a user clicks on the load more posts link", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(200, testResponses.instagramNextFeed.body);
+        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(
+          200, {timeline: testResponses.instagramNextFeed.body, status: {instagram: 200}}
+        );
         createController();
 
         $rootScope.posts = {
@@ -78,7 +84,9 @@ describe("FeedController", function () {
       });
 
       it("will return an error message if a user's access token is invalid", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(400, testResponses.instagramFeedError.body);
+        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(
+          400, {timeline: testResponses.instagramFeedError.body, status: {instagram: 400}}
+        );
         createController();
 
         $rootScope.posts = {

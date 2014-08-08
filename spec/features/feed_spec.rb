@@ -15,7 +15,7 @@ feature 'streaming a users feed', js: true do
     expect(page).to have_content 'Climbing up the steps of #SaintJosephsOratory'
   end
 
-  scenario 'a user will see a message if they try to login with an invalid token' do
+  scenario 'a user will see a message if they try to login with an invalid Instagram token' do
     body = {
       'meta' => {
         'error_type' => 'OAuthParameterException',
@@ -34,7 +34,7 @@ feature 'streaming a users feed', js: true do
     expect(page).to_not have_content 'You have successfully logged in with Instagram'
   end
 
-  it 'a user can click on the load more posts button and it will make a request to get more posts' do
+  scenario 'a user can click on the load more posts button and it will make a request to get more Instagram posts' do
     body1 = File.read('./spec/support/instagram_responses/timeline_response_count_5.json')
     body2 = File.read('./spec/support/instagram_responses/timeline_response_count_25.json')
     stub_request(:get, 'https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5').

@@ -17,6 +17,8 @@ gem 'omniauth-instagram', '~> 1.0.1'
 gem 'omniauth-twitter', '~> 1.0.1'
 gem 'angularjs-rails', '~> 1.2.20'
 gem 'typhoeus', '~> 0.6.9'
+gem 'oj', '~> 2.10.0'
+gem 'oj_mimic_json', '~> 1.0.1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.2'
