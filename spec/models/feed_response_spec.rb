@@ -6,9 +6,9 @@ describe FeedResponse do
 
     stub_request(:get, "https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5").
       to_return(status: 200, body: body)
-    response = Typhoeus.get("https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5")
+    instagram_response = Typhoeus.get("https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5")
 
-    feed_response = FeedResponse.new(response)
+    feed_response = FeedResponse.new(instagram_response)
 
     expect(feed_response.timeline).to eq Oj.load(body)
     expect(feed_response.status).to eq({instagram: 200})

@@ -28,4 +28,12 @@ describe Instagram::Api do
     expect(response.body).to eq body
     expect(response.code).to eq 200
   end
+
+  it 'will return an empty array if the user does not have an instagram account' do
+    user = create_user
+    instagram_api = Instagram::Api.new(user)
+    response = instagram_api.feed
+    expect(response.body).to eq []
+    expect(response.code).to eq 204
+  end
 end
