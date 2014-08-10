@@ -8,15 +8,23 @@ module Twitter
     def feed(pagination = nil)
       account = @user.accounts.find_by(provider: "twitter")
       if account
-        client = configure_client(account)
-        body = client.home_timeline(count: 5)
-        twitter_feed_response(body)
+        fetch_home_timeline(account)
       else
         NullResponse.new
       end
     end
 
     private
+
+    def fetch_home_timeline(account)
+      begin
+        client = configure_client(account)
+        body = client.home_timeline(count: 5)
+        twitter_feed_response(body)
+      rescue Twitter::Error::Unauthorized
+        Struct.new(:body, :code).new([], 401)
+      end
+    end
 
     def twitter_feed_response(body)
       Struct.new(:body, :code).new(body, 200)

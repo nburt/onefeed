@@ -6,6 +6,9 @@
     <p>You don't have any accounts</p>
   <% else %>
     <div ng-controller="FeedController as feed" ng-init="initialFeed()">
+      <div class="feed-content-container" ng-if="posts.errors">
+        <p class="center">{{posts.error}}</p>
+      </div>
       <div class="feed-content-container" ng-if="posts.success">
         <div class="individual-post column two-thirds" ng-repeat="post in posts.body">
           <instagram-post ng-if="post.provider == 'instagram'"></instagram-post>
@@ -14,10 +17,6 @@
         <div class="column two-thirds load-more-container">
           <a ng-click="nextFeed()" class="load-more-link">Load more posts</a>
         </div>
-      </div>
-      <div class="feed-content-container" ng-if="posts.success === false">
-        <p class="center">Your account is no longer authorized. Please reauthorize your Instagram account by visiting
-          your account page.</p>
       </div>
     </div>
   <% end %>

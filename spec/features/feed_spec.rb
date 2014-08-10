@@ -30,7 +30,7 @@ feature 'streaming a users feed', js: true do
     login_user(user)
     click_link 'My Account'
     find(:xpath, "//a[contains(@href,'/auth/instagram')]").click
-    expect(page).to have_content 'Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page.'
+    expect(page).to have_content 'Your account is no longer authorized. Please reauthorize the following accounts on your account page: Instagram.'
     expect(page).to_not have_content 'You have successfully logged in with Instagram'
   end
 
@@ -62,4 +62,5 @@ feature 'streaming a users feed', js: true do
     find(:xpath, "//a[contains(@href,'/auth/twitter')]").click
     expect(page).to have_content 'Gillmor Gang Live 05.02.14 http://t.co/WmzFBbPKUr by @stevegillmor'
   end
+
 end

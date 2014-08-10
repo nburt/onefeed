@@ -28,8 +28,8 @@
   </div>
   <div class="post-interactive">
     <ul>
-      <li><%= image_tag("comment.svg") %> {{post.retweet_count}}</li>
-      <li><%= image_tag("heart.svg") %> {{post.favorite_count}}</li>
+      <li><%= image_tag("retweet.svg") %> {{post.retweet_count}}</li>
+      <li><%= image_tag("like.svg") %> {{post.favorite_count}}</li>
       <li><a class="main-link post-link" href="https://twitter.com/{{post.user.screen_name}}/status/{{post.id_str}}" target="_blank">View</a></li>
     </ul>
   </div>

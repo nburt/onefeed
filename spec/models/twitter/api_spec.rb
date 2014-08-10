@@ -17,6 +17,7 @@ describe Twitter::Api do
 
     twitter_api = Twitter::Api.new(user)
     response = twitter_api.feed
+
     expect(response.body).to eq [tweet_1, tweet_2]
     expect(response.code).to eq 200
   end
@@ -27,5 +28,28 @@ describe Twitter::Api do
     response = twitter_api.feed
     expect(response.body).to eq []
     expect(response.code).to eq 204
+  end
+
+  it 'will raise an error if a user is no longer authorized' do
+    body = {
+      "errors" => [
+        {
+          "message" => "Bad Authentication data",
+          "code" => 215
+        }
+      ]
+    }.to_json
+
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=5').
+      to_return(status: 401, body: body)
+
+    user = create_user
+    create_twitter_account(user)
+    allow(Twitter::REST::Client).to receive(:home_timeline).and_raise(Twitter::Error::Unauthorized)
+    twitter_api = Twitter::Api.new(user)
+    response = twitter_api.feed
+
+    expect(response.body).to eq []
+    expect(response.code).to eq 401
   end
 end

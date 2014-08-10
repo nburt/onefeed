@@ -1,7 +1,8 @@
 class Feed
-  def initialize(user, params = {instagram: nil})
+  def initialize(user, params = {instagram: nil, twitter: nil})
     @user = user
     @instagram_pagination = params[:instagram]
+    @twitter_pagination = params[:twitter]
   end
 
   def timeline

@@ -36,4 +36,25 @@ describe Instagram::Api do
     expect(response.body).to eq []
     expect(response.code).to eq 204
   end
+
+  it 'will return a 400 with an error message if the account if unauthorized' do
+    body = {
+      "meta" => {
+        "error_type" => "OAuthParameterException",
+        "code" => 400,
+        "error_message" => "The access_token provided is invalid."
+      }
+    }.to_json
+
+    stub_request(:get, "https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5").
+      to_return(status: 400, body: body)
+
+    user = create_user
+    create_instagram_account(user)
+    instagram_api = Instagram::Api.new(user)
+    response = instagram_api.feed
+
+    expect(response.body).to eq body
+    expect(response.code).to eq 400
+  end
 end

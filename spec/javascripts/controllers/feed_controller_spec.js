@@ -29,11 +29,12 @@ describe("FeedController", function () {
             pagination: {instagram: '776999430264003590_1081226094'}}
         );
         createController();
-        expect($rootScope.posts).toEqual({});
+        expect($rootScope.posts).toEqual({errors: false});
         $httpBackend.expectGET('/api/feed');
         $rootScope.initialFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
+          errors: false,
           success: true,
           body: instagramResponses.instagramInitialFeed.body,
           pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id}
@@ -43,19 +44,19 @@ describe("FeedController", function () {
       it("will return an error message if a user's instagram access token is invalid", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           400, {
-            timeline: instagramResponses.instagramFeedError.body,
+            timeline: [],
             status: {instagram: 400, twitter: 204},
             pagination: {}
           }
         );
         createController();
-        expect($rootScope.posts).toEqual({});
+        expect($rootScope.posts).toEqual({errors: false});
         $httpBackend.expectGET('/api/feed');
         $rootScope.initialFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
-          success: false,
-          body: "Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page."
+          errors: true,
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Instagram."
         });
       });
 
@@ -68,14 +69,101 @@ describe("FeedController", function () {
           }
         );
         createController();
-        expect($rootScope.posts).toEqual({});
+        expect($rootScope.posts).toEqual({errors: false});
+        $httpBackend.expectGET('/api/feed');
+        $rootScope.initialFeed();
+        $httpBackend.flush();
+        expect($rootScope.posts).toEqual({
+          success: true,
+          errors: false,
+          body: twitterResponses.initialFeed.timeline,
+          pagination: twitterResponses.initialFeed.pagination
+        });
+      });
+
+      it("returns an error message if the twitter access token is invalid", function () {
+        $httpBackend.when('GET', '/api/feed').respond(
+          400, {
+            timeline: [],
+            status: {instagram: 204, twitter: 401},
+            pagination: {}
+          }
+        );
+
+        createController();
+        expect($rootScope.posts).toEqual({errors: false});
+        $httpBackend.expectGET('/api/feed');
+        $rootScope.initialFeed();
+        $httpBackend.flush();
+
+        expect($rootScope.posts).toEqual({
+          errors: true,
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Twitter."
+        });
+      });
+
+      it("returns an error message if the twitter and instagram access tokens are invalid", function () {
+        $httpBackend.when('GET', '/api/feed').respond(
+          400, {
+            timeline: [],
+            status: {instagram: 400, twitter: 401},
+            pagination: {}
+          }
+        );
+
+        createController();
+        expect($rootScope.posts).toEqual({errors: false});
+        $httpBackend.expectGET('/api/feed');
+        $rootScope.initialFeed();
+        $httpBackend.flush();
+
+        expect($rootScope.posts).toEqual({
+          errors: true,
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Instagram, Twitter."
+        });
+      });
+
+      it("returns an error message if the twitter access token is invalid and the instagram token is valid", function () {
+        $httpBackend.when('GET', '/api/feed').respond(
+          200, {
+            timeline: instagramResponses.instagramInitialFeed.body,
+            status: {instagram: 200, twitter: 401},
+            pagination: {instagram: '776999430264003590_1081226094'}
+          }
+        );
+        createController();
+        expect($rootScope.posts).toEqual({errors: false});
+        $httpBackend.expectGET('/api/feed');
+        $rootScope.initialFeed();
+        $httpBackend.flush();
+        expect($rootScope.posts).toEqual({
+          success: true,
+          body: instagramResponses.instagramInitialFeed.body,
+          pagination: {instagram: '776999430264003590_1081226094'},
+          errors: true,
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Twitter."
+        });
+      });
+
+      it("returns an error message if the instagram access token is invalid and the twitter token is valid", function () {
+        $httpBackend.when('GET', '/api/feed').respond(
+          200, {
+            timeline: twitterResponses.initialFeed.timeline,
+            status: {instagram: 400, twitter: 200},
+            pagination: twitterResponses.initialFeed.pagination
+          }
+        );
+        createController();
+        expect($rootScope.posts).toEqual({errors: false});
         $httpBackend.expectGET('/api/feed');
         $rootScope.initialFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
           success: true,
           body: twitterResponses.initialFeed.timeline,
-          pagination: twitterResponses.initialFeed.pagination
+          pagination: twitterResponses.initialFeed.pagination,
+          errors: true,
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Instagram."
         });
       });
     });
@@ -90,10 +178,11 @@ describe("FeedController", function () {
             pagination: {instagram: instagramResponses.instagramNextFeed.body.pagination.next_max_id}
           }
         );
+
         createController();
 
         $rootScope.posts = {
-          success: true,
+          errors: false,
           body: instagramResponses.instagramInitialFeed.body.data,
           pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id}
         };
@@ -108,24 +197,26 @@ describe("FeedController", function () {
         $rootScope.nextFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
-          success: true,
+          errors: false,
           body: body,
-          pagination: {instagram: instagramResponses.instagramNextFeed.body.pagination.next_max_id}
+          pagination: {instagram: instagramResponses.instagramNextFeed.body.pagination.next_max_id},
+          success: true
         });
       });
 
       it("will return an error message if a user's instagram access token is invalid", function () {
         $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(
           400, {
-            timeline: instagramResponses.instagramFeedError.body,
+            timeline: [],
             status: {instagram: 400, twitter: 204},
             pagination: {}
           }
         );
+
         createController();
 
         $rootScope.posts = {
-          success: true,
+          errors: false,
           body: instagramResponses.instagramInitialFeed.body.data,
           pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id}
         };
@@ -134,8 +225,10 @@ describe("FeedController", function () {
         $rootScope.nextFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
-          success: false,
-          body: "Your account is no longer authorized. Please reauthorize your Instagram account by visiting your account page."
+          errors: true,
+          body: instagramResponses.instagramInitialFeed.body.data,
+          pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id},
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Instagram."
         });
       });
     });

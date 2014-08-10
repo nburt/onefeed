@@ -37,7 +37,7 @@ describe Feed do
         to_return(status: 200, body: body)
 
       expected = {
-        timeline: TIMELINE.map do |post|
+        timeline: TIMELINE_2.map do |post|
           post[:created_at] = "#{Time.parse(post[:created_at]).to_i}"
           post[:provider] = "twitter"
           post.stringify_keys

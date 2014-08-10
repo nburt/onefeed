@@ -77,5 +77,103 @@ describe "getting a user's instagram timeline" do
       expect(response.status).to eq 200
       expect(response.body).to eq expected_response_body
     end
+
+    it 'will get the latest 5 twitter posts' do
+      body = File.read("./spec/support/twitter_responses/timeline_response_count_5.json")
+
+      stub_request(:get, "https://api.twitter.com/1.1/statuses/home_timeline.json?count=5").
+        to_return(status: 200, body: body)
+
+      user = create_user
+      create_twitter_account(user)
+
+      expected_timeline = TIMELINE.map do |post|
+        post[:created_at] = "#{Time.parse(post[:created_at]).to_i}"
+        post[:provider] = "twitter"
+        post.stringify_keys
+      end
+
+      expected_response_body = {
+        timeline: expected_timeline,
+        status: {instagram: 204, twitter: 200},
+        pagination: {twitter: "462321101763522561"}
+      }.to_json
+
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/feed'
+
+      expect(response.status).to eq 200
+      expect(response.body).to eq expected_response_body
+    end
+
+    it 'will return an empty array if a request to twitter is made with an invalid token' do
+      body = {
+        "errors" => [
+          {
+            "message" => "Could not authenticate you",
+            "code" => 135
+          }
+        ]
+      }.to_json
+
+      stub_request(:get, "https://api.twitter.com/1.1/statuses/home_timeline.json?count=5").
+        to_return(status: 401, body: body)
+
+      user = create_user
+      create_twitter_account(user)
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/feed'
+      expect(response.status).to eq 400
+      expect(response.body).to eq(
+                                 {
+                                   timeline: [],
+                                   status: {instagram: 204, twitter: 401},
+                                   pagination: {}
+                                 }.to_json
+                               )
+    end
+
+    it 'will get a combined feed of instagram and twitter posts' do
+      instagram_body = File.read('./spec/support/instagram_responses/timeline_response_count_1.json')
+      twitter_body = File.read('./spec/support/twitter_responses/timeline_response_count_2.json')
+
+      stub_request(:get, "https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5").
+        to_return(status: 200, body: instagram_body)
+
+      stub_request(:get, "https://api.twitter.com/1.1/statuses/home_timeline.json?count=5").
+        to_return(status: 200, body: twitter_body)
+
+      user = create_user
+      create_instagram_account(user)
+      create_twitter_account(user)
+
+      instagram_post = Oj.load(
+        File.read("./spec/support/instagram_responses/time_edited_response_count_1.json")
+      )["data"].first
+      instagram_post["provider"] = "instagram"
+
+      twitter_timeline = Oj.load(twitter_body).map do |post|
+        post["created_at"] = "#{Time.parse(post["created_at"]).to_i}"
+        post["provider"] = "twitter"
+        post
+      end
+
+      expected_timeline = []
+      expected_timeline << twitter_timeline[0]
+      expected_timeline << instagram_post
+      expected_timeline << twitter_timeline[1]
+
+      expected_response_body = {
+        timeline: expected_timeline,
+        status: {instagram: 200, twitter: 200},
+        pagination: {instagram: "776999430264003590_1081226094", twitter: "462321453514240000"}
+      }.to_json
+
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/feed'
+
+      expect(response.status).to eq 200
+      expect(response.body).to eq expected_response_body
+    end
   end
 end
