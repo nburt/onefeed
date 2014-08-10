@@ -42,6 +42,15 @@ small, .font_small {
   font-size: 0.75em;
 }
 
+a {
+  color: $brand-green;
+  text-decoration: none;
+  &:hover {
+    color: $hover-green;
+    text-decoration: underline;
+  }
+}
+
 .center {
   text-align: center;
 }

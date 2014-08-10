@@ -23,7 +23,7 @@
   <div class="post-content">
     <ul>
       <li ng-if="post.extended_entities.media"><img class="provider-image" ng-src="{{post.extended_entities.media[0].media_url}}"/></li>
-      <li>{{post.text}}</li>
+      <li ng-bind-html="post.text | linky">{{post.text}}</li>
     </ul>
   </div>
   <div class="post-interactive">

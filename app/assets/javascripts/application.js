@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular
+//= require angular-sanitize
 //= require moment.js
 //= require_tree .

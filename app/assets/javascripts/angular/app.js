@@ -1,1 +1,1 @@
-window.App = angular.module("onefeed", []);
+window.App = angular.module("onefeed", ['ngSanitize']);
