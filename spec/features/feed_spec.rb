@@ -50,4 +50,16 @@ feature 'streaming a users feed', js: true do
     find('.load-more-link').click
     expect(page).to have_content 'Pool time #mtl'
   end
+
+  scenario 'a user can stream Twitter posts' do
+    mock_auth_hash
+    body = File.read('./spec/support/twitter_responses/timeline_response_count_5.json')
+    stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=5').
+      to_return(status: 200, body: body)
+    user = create_user
+    login_user(user)
+    click_link 'My Account'
+    find(:xpath, "//a[contains(@href,'/auth/twitter')]").click
+    expect(page).to have_content 'Gillmor Gang Live 05.02.14 http://t.co/WmzFBbPKUr by @stevegillmor'
+  end
 end

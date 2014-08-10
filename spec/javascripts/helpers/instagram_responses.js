@@ -1,4 +1,4 @@
-var testResponses = {
+var instagramResponses = {
   instagramInitialFeed: {
     status: 200,
     body: {
@@ -566,7 +566,6 @@ var testResponses = {
             ]
           },
           "filter": "Normal",
-          "created_time": "1407022219",
           "link": "http://instagram.com/p/rNuJUWuZ8H/",
           "likes": {
             "count": 17,
@@ -635,7 +634,9 @@ var testResponses = {
             "full_name": "Debbie",
             "bio": "",
             "id": "200243686"
-          }
+          },
+          "created_at": "1407022219",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -738,7 +739,6 @@ var testResponses = {
             ]
           },
           "filter": "Rise",
-          "created_time": "1407020181",
           "link": "http://instagram.com/p/rNqQgWER3-/",
           "likes": {
             "count": 41,
@@ -807,7 +807,9 @@ var testResponses = {
             "full_name": "abeerrajper",
             "bio": "",
             "id": "1081226094"
-          }
+          },
+          "created_at": "1407020181",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -822,7 +824,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Valencia",
-          "created_time": "1407019441",
           "link": "http://instagram.com/p/rNo2LMkR1p/",
           "likes": {
             "count": 23,
@@ -1017,7 +1018,9 @@ var testResponses = {
             "full_name": "Jordan",
             "bio": "",
             "id": "42804963"
-          }
+          },
+          "created_at": "1407019441",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1033,7 +1036,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Lo-fi",
-          "created_time": "1407008893",
           "link": "http://instagram.com/p/rNUun5Ab_O/",
           "likes": {
             "count": 9,
@@ -1195,7 +1197,9 @@ var testResponses = {
             "full_name": "Jon",
             "bio": "",
             "id": "579816121"
-          }
+          },
+          "created_at": "1407008893",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1224,7 +1228,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Normal",
-          "created_time": "1407002846",
           "link": "http://instagram.com/p/rNJMW3lUZb/",
           "likes": {
             "count": 6,
@@ -1382,7 +1385,9 @@ var testResponses = {
             "full_name": "Jordan",
             "bio": "",
             "id": "42804963"
-          }
+          },
+          "created_at": "1407002846",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1409,7 +1414,6 @@ var testResponses = {
             ]
           },
           "filter": "Valencia",
-          "created_time": "1406962246",
           "link": "http://instagram.com/p/rL7wTVOZz-/",
           "likes": {
             "count": 8,
@@ -1478,7 +1482,9 @@ var testResponses = {
             "full_name": "Debbie",
             "bio": "",
             "id": "200243686"
-          }
+          },
+          "created_at": "1406962246",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1498,7 +1504,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Earlybird",
-          "created_time": "1406948237",
           "link": "http://instagram.com/p/rLhCRTzZHM/",
           "likes": {
             "count": 5,
@@ -1567,7 +1572,9 @@ var testResponses = {
             "full_name": "Jordan",
             "bio": "",
             "id": "42804963"
-          }
+          },
+          "created_at": "1406948237",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1581,7 +1588,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Normal",
-          "created_time": "1406936922",
           "link": "http://instagram.com/p/rLLdB9FYWN/",
           "likes": {
             "count": 15,
@@ -1663,7 +1669,9 @@ var testResponses = {
             "full_name": "Maggie Edmunds",
             "bio": "",
             "id": "46126376"
-          }
+          },
+          "created_at": "1406936922",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1684,7 +1692,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Unknown",
-          "created_time": "1406919188",
           "link": "http://instagram.com/p/rKpoSKnrMA/",
           "likes": {
             "count": 8,
@@ -1753,7 +1760,9 @@ var testResponses = {
             "full_name": "Beatrice Peng",
             "bio": "",
             "id": "236856963"
-          }
+          },
+          "created_at": "1406919188",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1772,7 +1781,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Normal",
-          "created_time": "1406893393",
           "link": "http://instagram.com/p/rJ4bb1A67L/",
           "likes": {
             "count": 9,
@@ -1841,7 +1849,9 @@ var testResponses = {
             "full_name": "Maggie Hutton",
             "bio": "",
             "id": "375325234"
-          }
+          },
+          "created_at": "1406893393",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1855,7 +1865,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Unknown",
-          "created_time": "1406870186",
           "link": "http://instagram.com/p/rJMKkQER58/",
           "likes": {
             "count": 19,
@@ -1924,7 +1933,9 @@ var testResponses = {
             "full_name": "abeerrajper",
             "bio": "",
             "id": "1081226094"
-          }
+          },
+          "created_at": "1406870186",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -1961,7 +1972,6 @@ var testResponses = {
             ]
           },
           "filter": "Amaro",
-          "created_time": "1406845571",
           "link": "http://instagram.com/p/rIdN13kRwG/",
           "likes": {
             "count": 34,
@@ -2030,7 +2040,9 @@ var testResponses = {
             "full_name": "abeerrajper",
             "bio": "",
             "id": "1081226094"
-          }
+          },
+          "created_at": "1406845571",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2109,7 +2121,6 @@ var testResponses = {
             ]
           },
           "filter": "Unknown",
-          "created_time": "1406781739",
           "link": "http://instagram.com/p/rGjd32kR3U/",
           "likes": {
             "count": 33,
@@ -2168,7 +2179,9 @@ var testResponses = {
             "full_name": "abeerrajper",
             "bio": "",
             "id": "1081226094"
-          }
+          },
+          "created_at": "1406781739",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2185,7 +2198,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Valencia",
-          "created_time": "1406772363",
           "link": "http://instagram.com/p/rGRlVsuZzf/",
           "likes": {
             "count": 7,
@@ -2254,7 +2266,9 @@ var testResponses = {
             "full_name": "Debbie",
             "bio": "",
             "id": "200243686"
-          }
+          },
+          "created_at": "1406772363",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2281,7 +2295,6 @@ var testResponses = {
             ]
           },
           "filter": "Sierra",
-          "created_time": "1406766988",
           "link": "http://instagram.com/p/rGHVGdkR80/",
           "likes": {
             "count": 19,
@@ -2350,7 +2363,9 @@ var testResponses = {
             "full_name": "abeerrajper",
             "bio": "",
             "id": "1081226094"
-          }
+          },
+          "created_at": "1406766988",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2374,7 +2389,6 @@ var testResponses = {
             ]
           },
           "filter": "Amaro",
-          "created_time": "1406763208",
           "link": "http://instagram.com/p/rGAHxir-1i/",
           "likes": {
             "count": 28,
@@ -2456,7 +2470,9 @@ var testResponses = {
             "full_name": "Ryan Patterson",
             "bio": "",
             "id": "230188066"
-          }
+          },
+          "created_at": "1406763208",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2501,7 +2517,6 @@ var testResponses = {
             ]
           },
           "filter": "Normal",
-          "created_time": "1406734642",
           "link": "http://instagram.com/p/rFJorwAiMa/",
           "likes": {
             "count": 14,
@@ -2570,7 +2585,9 @@ var testResponses = {
             "full_name": "Benjamin Blue",
             "bio": "",
             "id": "863685135"
-          }
+          },
+          "created_at": "1406734642",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2587,7 +2604,6 @@ var testResponses = {
             "data": []
           },
           "filter": "Normal",
-          "created_time": "1406702680",
           "link": "http://instagram.com/p/rEMrBHuZzb/",
           "likes": {
             "count": 8,
@@ -2656,7 +2672,9 @@ var testResponses = {
             "full_name": "Debbie",
             "bio": "",
             "id": "200243686"
-          }
+          },
+          "created_at": "1406702680",
+          "provider": "instagram"
         },
         {
           "attribution": null,
@@ -2704,7 +2722,6 @@ var testResponses = {
             ]
           },
           "filter": "Lo-fi",
-          "created_time": "1406699148",
           "link": "http://instagram.com/p/rEF77mkR4A/",
           "likes": {
             "count": 24,
@@ -2773,7 +2790,9 @@ var testResponses = {
             "full_name": "abeerrajper",
             "bio": "",
             "id": "1081226094"
-          }
+          },
+          "created_at": "1406699148",
+          "provider": "instagram"
         }
       ]
     }

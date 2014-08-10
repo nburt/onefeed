@@ -5,7 +5,11 @@ module Api
       feed = Feed.new(current_user, params)
       response = feed.timeline
       http_status_code = http_status_code(response.status)
-      render json: {timeline: response.timeline, status: response.status}, status: http_status_code
+      render json: {
+        timeline: response.timeline,
+        status: response.status,
+        pagination: response.pagination
+      }, status: http_status_code
     end
 
     private

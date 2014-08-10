@@ -1,0 +1,16 @@
+{
+  "pagination": {
+    "next_url": "https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5&max_id=776999430264003590_1081226094",
+    "next_max_id": "776999430264003590_1081226094"
+  },
+  "data": [
+    {
+      "created_time": "1406919188",
+      "id": "777616973866382080_236856963"
+    },
+    {
+      "created_time": "1406893393",
+      "id": "777400586609077963_375325234"
+    }
+  ]
+}

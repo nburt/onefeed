@@ -1,0 +1,36 @@
+<div class="post-main">
+  <div class="post-header">
+    <ul>
+      <li>
+        <a href="https://twitter.com/{{post.user.screen_name}}" target="_blank">
+          <img class="profile-picture" ng-src="{{post.user.profile_image_url_https}}">
+        </a>
+      </li>
+      <li>
+        <a href="https://twitter.com/{{post.user.screen_name}}" class="main-link post-link" target="_blank">{{post.user.name}}</a>
+      </li>
+      <li>
+        @{{post.user.name}}
+      </li>
+      <li>
+        <time>{{post.created_at * 1000 | fromNow}}</time>
+      </li>
+      <li class="network-logo-container">
+        <%= image_tag("twitter_logo.png", class: "network-logo") %>
+      </li>
+    </ul>
+  </div>
+  <div class="post-content">
+    <ul>
+      <li ng-if="post.extended_entities.media"><img class="provider-image" ng-src="{{post.extended_entities.media[0].media_url}}"/></li>
+      <li>{{post.text}}</li>
+    </ul>
+  </div>
+  <div class="post-interactive">
+    <ul>
+      <li><%= image_tag("comment.svg") %> {{post.retweet_count}}</li>
+      <li><%= image_tag("heart.svg") %> {{post.favorite_count}}</li>
+      <li><a class="main-link post-link" href="https://twitter.com/{{post.user.screen_name}}/status/{{post.id_str}}" target="_blank">View</a></li>
+    </ul>
+  </div>
+</div>

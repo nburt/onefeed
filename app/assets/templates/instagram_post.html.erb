@@ -10,7 +10,7 @@
         <a href="http://www.instagram.com/{{post.user.username}}" class="main-link post-link" target="_blank">@{{post.user.username}}</a>
       </li>
       <li>
-        <time>{{post.created_time * 1000 | fromNow}}</time>
+        <time>{{post.created_at * 1000 | fromNow}}</time>
       </li>
       <li class="network-logo-container">
         <%= image_tag("instagram_logo.png", class: "network-logo") %>
@@ -19,7 +19,7 @@
   </div>
   <div class="post-content">
     <ul>
-      <li><img class="instagram-image" ng-src="{{post.images.standard_resolution.url}}"/></li>
+      <li><img class="provider-image" ng-src="{{post.images.standard_resolution.url}}"/></li>
       <li>{{post.caption.text}}</li>
     </ul>
   </div>
