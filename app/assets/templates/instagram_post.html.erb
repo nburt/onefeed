@@ -20,7 +20,7 @@
   <div class="post-content">
     <ul>
       <li><img class="provider-image" ng-src="{{post.images.standard_resolution.url}}"/></li>
-      <li ng-bind-html="post.caption.text | linky">{{post.caption.text}}</li>
+      <li ng-bind-html="post.caption.text | linky:'_blank'">{{post.caption.text}}</li>
     </ul>
   </div>
   <div class="post-interactive">
