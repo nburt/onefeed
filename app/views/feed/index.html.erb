@@ -1,4 +1,5 @@
 <div class="feed-container columns">
+  <%= flash[:facebook_success] %>
   <% if flash[:registration_failure] %>
     <p class="center failure"><%= flash[:registration_failure] %></p>
   <% end %>

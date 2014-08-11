@@ -26,6 +26,15 @@ module OmniauthMacros
         'secret' => 'mock_secret'
       },
     }
+
+    OmniAuth.config.mock_auth[:facebook] = {
+      'provider' => 'facebook',
+      'uid' => '123545',
+      'credentials' => {
+        'token' => 'mock_token',
+        'expires_at' => Time.now.to_i,
+      },
+    }
   end
 
   def mock_auth_invalid_hash
