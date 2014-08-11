@@ -41,7 +41,7 @@ describe("FeedController", function () {
         });
       });
 
-      it("will return an error message if a user's instagram access token is invalid", function () {
+      it("returns an error message if a user's instagram access token is invalid", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           400, {
             timeline: [],
@@ -170,7 +170,7 @@ describe("FeedController", function () {
 
     describe("getting subsequent feeds", function () {
 
-      it("will make a request for 25 more instagram posts when a user clicks on the load more posts link", function () {
+      it("makes a request for 25 more instagram posts when a user clicks on the load more posts link", function () {
         $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined').respond(
           200, {
             timeline: instagramResponses.instagramNextFeed.body,
@@ -204,7 +204,7 @@ describe("FeedController", function () {
         });
       });
 
-      it("will return an error message if a user's instagram access token is invalid", function () {
+      it("returns an error message if a user's instagram access token is invalid", function () {
         $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined').respond(
           400, {
             timeline: [],
@@ -232,7 +232,7 @@ describe("FeedController", function () {
         });
       });
 
-      it("will make a request for 25 more twitter posts when a user clicks on the load more posts link", function () {
+      it("makes a request for 25 more twitter posts when a user clicks on the load more posts link", function () {
         $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041').respond(
           200, {
             timeline: twitterResponses.nextFeed,
@@ -244,6 +244,7 @@ describe("FeedController", function () {
         createController();
 
         $rootScope.posts = {
+          success: true,
           errors: false,
           body: twitterResponses.initialFeed.timeline,
           pagination: twitterResponses.initialFeed.pagination
@@ -258,11 +259,43 @@ describe("FeedController", function () {
         $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041');
         $rootScope.nextFeed();
         $httpBackend.flush();
+
         expect($rootScope.posts).toEqual({
+          success: true,
           errors: false,
           body: body,
-          pagination: {twitter: twitterResponses.nextFeed.pagination},
-          success: true
+          pagination: {twitter: twitterResponses.nextFeed.pagination}
+        });
+      });
+
+      it("returns an error message is the twitter access token is invalid", function () {
+        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041').respond(
+          400, {
+            timeline: [],
+            status: {instagram: 204, twitter: 401},
+            pagination: {}
+          }
+        );
+
+        createController();
+
+        $rootScope.posts = {
+          success: true,
+          errors: false,
+          body: twitterResponses.initialFeed.timeline,
+          pagination: twitterResponses.initialFeed.pagination
+        };
+
+        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041');
+        $rootScope.nextFeed();
+        $httpBackend.flush();
+
+        expect($rootScope.posts).toEqual({
+          success: true,
+          errors: true,
+          body: twitterResponses.initialFeed.timeline,
+          pagination: twitterResponses.initialFeed.pagination,
+          error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Twitter."
         });
       });
     });

@@ -21,7 +21,10 @@
     };
 
     $scope.nextFeed = function () {
-      var url = "/api/feed?instagram=" + $scope.posts.pagination.instagram + "&twitter=" + $scope.posts.pagination.twitter;
+      var url = "/api/feed?instagram=" +
+        $scope.posts.pagination.instagram +
+        "&twitter=" +
+        $scope.posts.pagination.twitter;
       $http.get(url).
         success(function (data) {
           $scope.posts.success = true;
@@ -37,23 +40,23 @@
     };
 
     $scope.setErrorResponse = function (data) {
-      var unauthedProviders = [];
+      var unauthedAccounts = [];
       if (data.status.instagram == 400) {
-        unauthedProviders.push("Instagram");
+        unauthedAccounts.push("Instagram");
       }
 
       if (data.status.twitter == 401) {
-        unauthedProviders.push("Twitter");
+        unauthedAccounts.push("Twitter");
       }
 
-      if (unauthedProviders.length > 0) {
+      if (unauthedAccounts.length > 0) {
         var errorString = "Your account is no longer authorized. Please reauthorize the following accounts on your account page: ";
 
-        for (var i = 0; i < unauthedProviders.length; i++) {
-          if (i + 1 < unauthedProviders.length) {
-            errorString += (unauthedProviders[i] + ", ");
+        for (var i = 0; i < unauthedAccounts.length; i++) {
+          if (i + 1 < unauthedAccounts.length) {
+            errorString += (unauthedAccounts[i] + ", ");
           } else {
-            errorString += (unauthedProviders[i] + ".");
+            errorString += (unauthedAccounts[i] + ".");
           }
         }
 
