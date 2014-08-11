@@ -32,7 +32,7 @@ module OmniauthMacros
       'uid' => '123545',
       'credentials' => {
         'token' => 'mock_token',
-        'expires_at' => Time.now.to_i,
+        'expires_at' => Time.now.to_i
       },
     }
   end
@@ -57,6 +57,14 @@ module OmniauthMacros
       },
       'credentials' => {
         'token' => 'mock_token',
+      },
+    }
+
+    OmniAuth.config.mock_auth[:facebook] = {
+      'provider' => 'facebook',
+      'credentials' => {
+        'token' => 'mock_token',
+        'expires_at' => Time.now.to_i
       },
     }
   end
