@@ -21,7 +21,7 @@
     };
 
     $scope.nextFeed = function () {
-      var url = "/api/feed?instagram=" + $scope.posts.pagination.instagram;
+      var url = "/api/feed?instagram=" + $scope.posts.pagination.instagram + "&twitter=" + $scope.posts.pagination.twitter;
       $http.get(url).
         success(function (data) {
           $scope.posts.success = true;

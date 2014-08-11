@@ -63,6 +63,25 @@ feature 'streaming a users feed', js: true do
       find(:xpath, "//a[contains(@href,'/auth/twitter')]").click
       expect(page).to have_content 'Gillmor Gang Live 05.02.14 http://t.co/WmzFBbPKUr by @stevegillmor'
     end
+
+    scenario 'user can click on the load more posts button and it will make a request to get more Tweets' do
+      mock_auth_hash
+      body1 = File.read('./spec/support/twitter_responses/timeline_response_count_5.json')
+      body2 = File.read('./spec/support/twitter_responses/timeline_response_count_20.json')
+      stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=5').
+        to_return(status: 200, body: body1)
+      stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=26&max_id=462321101763522561').
+        to_return(status: 200, body: body2)
+
+      user = create_user
+      login_user(user)
+      click_link 'My Account'
+      find(:xpath, "//a[contains(@href,'/auth/twitter')]").click
+
+      expect(page).to have_content 'Gillmor Gang Live 05.02.14 http://t.co/WmzFBbPKUr by @stevegillmor'
+      find('.load-more-link').click
+      expect(page).to have_content 'Announcing Your Disrupt NY Startup Battlefield Final Judges http://t.co/zm8wpmwPbp by @alexia'
+    end
   end
 
   context "formatting the feed" do

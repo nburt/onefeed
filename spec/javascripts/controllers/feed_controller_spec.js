@@ -171,7 +171,7 @@ describe("FeedController", function () {
     describe("getting subsequent feeds", function () {
 
       it("will make a request for 25 more instagram posts when a user clicks on the load more posts link", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(
+        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined').respond(
           200, {
             timeline: instagramResponses.instagramNextFeed.body,
             status: {instagram: 200, twitter: 204},
@@ -193,7 +193,7 @@ describe("FeedController", function () {
           body.push(instagramResponses.instagramNextFeed.body.data[i])
         }
 
-        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094');
+        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094&twitter=undefined');
         $rootScope.nextFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
@@ -205,7 +205,7 @@ describe("FeedController", function () {
       });
 
       it("will return an error message if a user's instagram access token is invalid", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094').respond(
+        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined').respond(
           400, {
             timeline: [],
             status: {instagram: 400, twitter: 204},
@@ -221,7 +221,7 @@ describe("FeedController", function () {
           pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id}
         };
 
-        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094');
+        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094&twitter=undefined');
         $rootScope.nextFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
@@ -229,6 +229,40 @@ describe("FeedController", function () {
           body: instagramResponses.instagramInitialFeed.body.data,
           pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id},
           error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Instagram."
+        });
+      });
+
+      it("will make a request for 25 more twitter posts when a user clicks on the load more posts link", function () {
+        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041').respond(
+          200, {
+            timeline: twitterResponses.nextFeed,
+            status: {instagram: 204, twitter: 200},
+            pagination: {twitter: twitterResponses.nextFeed.pagination}
+          }
+        );
+
+        createController();
+
+        $rootScope.posts = {
+          errors: false,
+          body: twitterResponses.initialFeed.timeline,
+          pagination: twitterResponses.initialFeed.pagination
+        };
+
+        var body = $rootScope.posts.body;
+
+        for (var i = 0; i < twitterResponses.nextFeed.length; i++) {
+          body.push(twitterResponses.nextFeed[i])
+        }
+
+        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041');
+        $rootScope.nextFeed();
+        $httpBackend.flush();
+        expect($rootScope.posts).toEqual({
+          errors: false,
+          body: body,
+          pagination: {twitter: twitterResponses.nextFeed.pagination},
+          success: true
         });
       });
     });

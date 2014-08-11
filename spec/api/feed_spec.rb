@@ -133,6 +133,34 @@ describe "getting a user's instagram timeline" do
                                )
     end
 
+    it 'will get the next 25 twitter posts if it has a pagination id' do
+      body = File.read('./spec/support/twitter_responses/timeline_response_count_5.json')
+
+      stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=26&max_id=462323298248843264').
+        to_return(status: 200, body: body)
+
+      expected_timeline = TIMELINE_3.map do |post|
+        post[:created_at] = "#{Time.parse(post[:created_at]).to_i}"
+        post[:provider] = "twitter"
+        post.stringify_keys
+      end
+
+      expected_timeline.shift
+
+      expected_response_body = {
+        timeline: expected_timeline,
+        status: {instagram: 204, twitter: 200},
+        pagination: {twitter: "462321101763522561"}
+      }.to_json
+
+      user = create_user
+      create_twitter_account(user)
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/feed?twitter=462323298248843264'
+      expect(response.status).to eq 200
+      expect(response.body).to eq expected_response_body
+    end
+
     it 'will get a combined feed of instagram and twitter posts' do
       instagram_body = File.read('./spec/support/instagram_responses/timeline_response_count_1.json')
       twitter_body = File.read('./spec/support/twitter_responses/timeline_response_count_2.json')
