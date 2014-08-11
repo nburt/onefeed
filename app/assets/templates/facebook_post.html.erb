@@ -1,0 +1,65 @@
+<div class="post-main">
+  <div class="post-header">
+    <ul>
+      <li>
+        <a href="https://www.facebook.com/app_scoped_user_id/{{post.from.id}}" target="_blank">
+          <%= image_tag("default_user_image.png", class: "profile-picture") %>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/app_scoped_user_id/{{post.from.id}}" target="_blank">
+          {{post.from.name}}
+        </a>
+      </li>
+      <li ng-if="post.to && post.to.data.length == 1"><%= image_tag("arrow.svg") %></li>
+      <li ng-if="post.to && post.to.data.length == 1">
+        <a href="https://www.facebook.com/app_scoped_user_id/{{post.to.id}}" target="_blank">
+          <%= image_tag("default_user_image.png", class: "profile-picture") %>
+        </a>
+      </li>
+      <li ng-if="post.to && post.to.data.length == 1">
+        <a href="https://www.facebook.com/app_scoped_user_id/{{post.to.data[0].id}}" target="_blank">
+          {{post.to.data[0].name}}
+        </a>
+      </li>
+      <li>
+        <time>{{post.created_at * 1000 | fromNow}}</time>
+      </li>
+      <li class="network-logo-container">
+        <%= image_tag("facebook_logo.png", class: "network-logo") %>
+      </li>
+    </ul>
+    <div class="subheader" ng-if="post.application.name">
+      <ul>
+        <li>via {{post.application.name}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="post-content">
+    <ul>
+      <li ng-if="post.source">
+        <video ng-src="{{post.source}}" controls></video>
+      </li>
+      <li ng-if="post.picture && !post.source"><img class="provider-image" ng-src="{{post.picture}}"/></li>
+      <li ng-if="post.story">{{post.story}}</li>
+      <li ng-if="post.message">{{post.message}}</li>
+      <li ng-if="post.caption_text && post.status_type != 'shared_story'">{{post.caption_text}}</li>
+      <li ng-if="post.article_link && post.type == 'link'">
+        <a hre="{{post.article_link}}">View Link</a>
+      </li>
+    </ul>
+  </div>
+  <div class="post-interactive">
+    <ul>
+      <span ng-switch on="post">
+        <li ng-switch-when="post.comments"><%= image_tag("comment.svg") %> {{post.comments.length}}</li>
+        <li ng-switch-default><%= image_tag("comment.svg") %> 0</li>
+      </span>
+      <span ng-switch on="post">
+        <li ng-switch-when="post.likes.data"><%= image_tag("like.svg") %> {{post.likes.data.length}}</li>
+        <li ng-switch-default><%= image_tag("like.svg") %> 0</li>
+      </span>
+      <li><a class="main-link post-link" href="{{post.actions[0].link}}" target="_blank">View</a></li>
+    </ul>
+  </div>
+</div>

@@ -82,6 +82,18 @@ feature 'streaming a users feed', js: true do
       find('.load-more-link').click
       expect(page).to have_content 'Announcing Your Disrupt NY Startup Battlefield Final Judges http://t.co/zm8wpmwPbp by @alexia'
     end
+
+    it 'a user can stream Facebook posts' do
+      mock_auth_hash
+      body = File.read('./spec/support/facebook_responses/timeline_response_count_2.json')
+      stub_request(:get, 'https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=5').
+        to_return(status: 200, body: body)
+      user = create_user
+      login_user(user)
+      click_link 'My Account'
+      find(:xpath, "//a[contains(@href,'/auth/facebook')]").click
+      expect(page).to have_content 'Garden Watch: 8/11/2014 http://wp.me/p4pM8M-h0'
+    end
   end
 
   context "formatting the feed" do

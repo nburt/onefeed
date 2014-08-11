@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "1405512339732980_1454738551477025",
+      "created_time": "2014-08-01T19:00:36+0000"
+    },
+    {
+      "id": "10201679188771997_10202306493694228",
+      "created_time": "2014-08-01T18:35:12+0000"
+    }
+  ],
+  "paging": {
+    "previous": "https://graph.facebook.com/v2.1/10202091438462644/home?limit=5&since=1407765636",
+    "next": "https://graph.facebook.com/v2.1/10202091438462644/home?limit=5&until=1407764111"
+  }
+}

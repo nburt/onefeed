@@ -35,6 +35,14 @@
   .network-logo-container {
     float: right;
   }
+
+  .subheader {
+    li {
+      color: $box-shadow-gray;
+      font-style: italic;
+      font-size: .75em;
+    }
+  }
 }
 
 .post-main {

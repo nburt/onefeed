@@ -1,5 +1,4 @@
 <div class="feed-container columns">
-  <%= flash[:facebook_success] %>
   <% if flash[:registration_failure] %>
     <p class="center failure"><%= flash[:registration_failure] %></p>
   <% end %>
@@ -14,6 +13,7 @@
         <div class="individual-post column two-thirds" ng-repeat="post in posts.body">
           <instagram-post ng-if="post.provider == 'instagram'"></instagram-post>
           <twitter-post ng-if="post.provider == 'twitter'"></twitter-post>
+          <facebook-post ng-if="post.provider == 'facebook'"></facebook-post>
         </div>
         <div class="column two-thirds load-more-container">
           <a ng-click="nextFeed()" class="load-more-link">Load more posts</a>

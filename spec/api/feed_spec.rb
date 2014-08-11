@@ -15,7 +15,7 @@ describe "getting a user's instagram timeline" do
 
       expected_response_body = {
         timeline: expected_timeline,
-        status: {instagram: 200, twitter: 204},
+        status: {instagram: 200, twitter: 204, facebook: 204},
         pagination: {instagram: Oj.load(time_formatted_body)["pagination"]["next_max_id"]}
       }.to_json
 
@@ -47,7 +47,7 @@ describe "getting a user's instagram timeline" do
       expect(response.body).to eq(
                                  {
                                    timeline: [],
-                                   status: {instagram: 400, twitter: 204},
+                                   status: {instagram: 400, twitter: 204, facebook: 204},
                                    pagination: {}
                                  }.to_json
                                )
@@ -66,7 +66,7 @@ describe "getting a user's instagram timeline" do
 
       expected_response_body = {
         timeline: expected_timeline,
-        status: {instagram: 200, twitter: 204},
+        status: {instagram: 200, twitter: 204, facebook: 204},
         pagination: {instagram: Oj.load(time_formatted_body)["pagination"]["next_max_id"]}
       }.to_json
 
@@ -95,7 +95,7 @@ describe "getting a user's instagram timeline" do
 
       expected_response_body = {
         timeline: expected_timeline,
-        status: {instagram: 204, twitter: 200},
+        status: {instagram: 204, twitter: 200, facebook: 204},
         pagination: {twitter: "462321101763522561"}
       }.to_json
 
@@ -127,7 +127,7 @@ describe "getting a user's instagram timeline" do
       expect(response.body).to eq(
                                  {
                                    timeline: [],
-                                   status: {instagram: 204, twitter: 401},
+                                   status: {instagram: 204, twitter: 401, facebook: 204},
                                    pagination: {}
                                  }.to_json
                                )
@@ -149,7 +149,7 @@ describe "getting a user's instagram timeline" do
 
       expected_response_body = {
         timeline: expected_timeline,
-        status: {instagram: 204, twitter: 200},
+        status: {instagram: 204, twitter: 200, facebook: 204},
         pagination: {twitter: "462321101763522561"}
       }.to_json
 
@@ -157,6 +157,29 @@ describe "getting a user's instagram timeline" do
       create_twitter_account(user)
       post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
       get '/api/feed?twitter=462323298248843264'
+      expect(response.status).to eq 200
+      expect(response.body).to eq expected_response_body
+    end
+
+    it 'will get a facebook feed' do
+      body = File.read('./spec/support/facebook_responses/timeline_response_count_2.json')
+      stub_request(:get, "https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=5").
+        to_return(status: 200, body: body)
+
+      user = create_user
+      create_facebook_account(user)
+
+      expected_timeline = File.read('./spec/support/facebook_responses/time_formatted_timeline_response_count_2.json')
+
+      expected_response_body = {
+        timeline: Oj.load(expected_timeline),
+        status: {instagram: 204, twitter: 204, facebook: 200},
+        pagination: {}
+      }.to_json
+
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/feed'
+
       expect(response.status).to eq 200
       expect(response.body).to eq expected_response_body
     end
@@ -193,7 +216,7 @@ describe "getting a user's instagram timeline" do
 
       expected_response_body = {
         timeline: expected_timeline,
-        status: {instagram: 200, twitter: 200},
+        status: {instagram: 200, twitter: 200, facebook: 204},
         pagination: {instagram: "776999430264003590_1081226094", twitter: "462321453514240000"}
       }.to_json
 
