@@ -19,15 +19,20 @@ module Twitter
     def fetch_home_timeline(account, pagination)
       begin
         client = configure_client(account)
-        if pagination
-          body = client.home_timeline(count: 26, max_id: pagination)
-          body.shift
-        else
-          body = client.home_timeline(count: 5)
-        end
+        body = make_feed_request(client, pagination)
         twitter_feed_response(body)
       rescue Twitter::Error::Unauthorized
         Struct.new(:body, :code).new([], 401)
+      end
+    end
+
+    def make_feed_request(client, pagination)
+      if pagination
+        body = client.home_timeline(count: 26, max_id: pagination)
+        body.shift
+        body
+      else
+        client.home_timeline(count: 5)
       end
     end
 
