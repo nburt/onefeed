@@ -65,7 +65,7 @@ describe Feed do
       expected = {
         timeline: Oj.load(expected_timeline),
         status: {instagram: 204, twitter: 204, facebook: 200},
-        pagination: {}
+        pagination: {facebook: '1407764111'}
       }
 
       feed = Feed.new(user)

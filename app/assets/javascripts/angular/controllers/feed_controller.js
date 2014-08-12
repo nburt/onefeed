@@ -24,7 +24,9 @@
       var url = "/api/feed?instagram=" +
         $scope.posts.pagination.instagram +
         "&twitter=" +
-        $scope.posts.pagination.twitter;
+        $scope.posts.pagination.twitter +
+        "&facebook=" +
+        $scope.posts.pagination.facebook;
       $http.get(url).
         success(function (data) {
           $scope.posts.success = true;

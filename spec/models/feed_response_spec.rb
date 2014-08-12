@@ -50,7 +50,7 @@ describe FeedResponse do
 
     expect(feed_response.timeline).to eq expected_timeline
     expect(feed_response.status).to eq({instagram: 200, twitter: 200, facebook: 200})
-    expect(feed_response.pagination).to eq({instagram: "776999430264003590_1081226094", twitter: "2"})
+    expect(feed_response.pagination).to eq({instagram: "776999430264003590_1081226094", twitter: "2", facebook: "1407764111"})
   end
 
 end

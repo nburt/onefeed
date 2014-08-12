@@ -1,8 +1,9 @@
 class Feed
-  def initialize(user, params = {instagram: nil, twitter: nil})
+  def initialize(user, params = {instagram: nil, twitter: nil, facebook: nil})
     @user = user
     @instagram_pagination = params[:instagram]
     @twitter_pagination = params[:twitter]
+    @facebook_pagination = params[:facebook]
   end
 
   def timeline
@@ -23,7 +24,7 @@ class Feed
 
   def fetch_facebook_timeline
     facebook_api = Facebook::Api.new(@user)
-    facebook_api.feed
+    facebook_api.feed(@facebook_pagination)
   end
 
 end

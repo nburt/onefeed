@@ -39,6 +39,7 @@ class FeedResponse
       hash[:instagram] = @instagram_body["pagination"]["next_max_id"]
     end
     hash[:twitter] = @twitter_response.body.last.id.to_s if @twitter_response.body.last
+    hash[:facebook] = parse_facebook_pagination if !facebook_body.empty?
     hash
   end
 
@@ -79,6 +80,10 @@ class FeedResponse
     post.delete("created_time")
     post["provider"] = "facebook"
     post
+  end
+
+  def parse_facebook_pagination
+    facebook_body["paging"]["next"].scan(/&until=(.{10})/).flatten[0]
   end
 
 end

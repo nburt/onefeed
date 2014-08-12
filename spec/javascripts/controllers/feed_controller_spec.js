@@ -25,7 +25,7 @@ describe("FeedController", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           200, {
             timeline: instagramResponses.instagramInitialFeed.body,
-            status: {instagram: 200, twitter: 204},
+            status: {instagram: 200, twitter: 204, facebook: 204},
             pagination: {instagram: '776999430264003590_1081226094'}}
         );
         createController();
@@ -45,7 +45,7 @@ describe("FeedController", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           400, {
             timeline: [],
-            status: {instagram: 400, twitter: 204},
+            status: {instagram: 400, twitter: 204, facebook: 204},
             pagination: {}
           }
         );
@@ -85,7 +85,7 @@ describe("FeedController", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           400, {
             timeline: [],
-            status: {instagram: 204, twitter: 401},
+            status: {instagram: 204, twitter: 401, facebook: 204},
             pagination: {}
           }
         );
@@ -106,7 +106,7 @@ describe("FeedController", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           400, {
             timeline: [],
-            status: {instagram: 400, twitter: 401},
+            status: {instagram: 400, twitter: 401, facebook: 204},
             pagination: {}
           }
         );
@@ -127,7 +127,7 @@ describe("FeedController", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           200, {
             timeline: instagramResponses.instagramInitialFeed.body,
-            status: {instagram: 200, twitter: 401},
+            status: {instagram: 200, twitter: 401, facebook: 204},
             pagination: {instagram: '776999430264003590_1081226094'}
           }
         );
@@ -149,7 +149,7 @@ describe("FeedController", function () {
         $httpBackend.when('GET', '/api/feed').respond(
           200, {
             timeline: twitterResponses.initialFeed.timeline,
-            status: {instagram: 400, twitter: 200},
+            status: {instagram: 400, twitter: 200, facebook: 204},
             pagination: twitterResponses.initialFeed.pagination
           }
         );
@@ -171,10 +171,10 @@ describe("FeedController", function () {
     describe("getting subsequent feeds", function () {
 
       it("makes a request for 25 more instagram posts when a user clicks on the load more posts link", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined').respond(
+        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined&facebook=undefined').respond(
           200, {
             timeline: instagramResponses.instagramNextFeed.body,
-            status: {instagram: 200, twitter: 204},
+            status: {instagram: 200, twitter: 204, facebook: 204},
             pagination: {instagram: instagramResponses.instagramNextFeed.body.pagination.next_max_id}
           }
         );
@@ -193,7 +193,7 @@ describe("FeedController", function () {
           body.push(instagramResponses.instagramNextFeed.body.data[i])
         }
 
-        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094&twitter=undefined');
+        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094&twitter=undefined&facebook=undefined');
         $rootScope.nextFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
@@ -205,10 +205,10 @@ describe("FeedController", function () {
       });
 
       it("returns an error message if a user's instagram access token is invalid", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined').respond(
+        $httpBackend.when('GET', '/api/feed?instagram=776999430264003590_1081226094&twitter=undefined&facebook=undefined').respond(
           400, {
             timeline: [],
-            status: {instagram: 400, twitter: 204},
+            status: {instagram: 400, twitter: 204, facebook: 204},
             pagination: {}
           }
         );
@@ -221,7 +221,7 @@ describe("FeedController", function () {
           pagination: {instagram: instagramResponses.instagramInitialFeed.body.pagination.next_max_id}
         };
 
-        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094&twitter=undefined');
+        $httpBackend.expectGET('/api/feed?instagram=776999430264003590_1081226094&twitter=undefined&facebook=undefined');
         $rootScope.nextFeed();
         $httpBackend.flush();
         expect($rootScope.posts).toEqual({
@@ -233,10 +233,10 @@ describe("FeedController", function () {
       });
 
       it("makes a request for 25 more twitter posts when a user clicks on the load more posts link", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041').respond(
+        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041&facebook=undefined').respond(
           200, {
             timeline: twitterResponses.nextFeed,
-            status: {instagram: 204, twitter: 200},
+            status: {instagram: 204, twitter: 200, facebook: 204},
             pagination: {twitter: twitterResponses.nextFeed.pagination}
           }
         );
@@ -256,7 +256,7 @@ describe("FeedController", function () {
           body.push(twitterResponses.nextFeed[i])
         }
 
-        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041');
+        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041&facebook=undefined');
         $rootScope.nextFeed();
         $httpBackend.flush();
 
@@ -269,10 +269,10 @@ describe("FeedController", function () {
       });
 
       it("returns an error message is the twitter access token is invalid", function () {
-        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041').respond(
+        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=462320636392919041&facebook=undefined').respond(
           400, {
             timeline: [],
-            status: {instagram: 204, twitter: 401},
+            status: {instagram: 204, twitter: 401, facebook: 204},
             pagination: {}
           }
         );
@@ -286,7 +286,7 @@ describe("FeedController", function () {
           pagination: twitterResponses.initialFeed.pagination
         };
 
-        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041');
+        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=462320636392919041&facebook=undefined');
         $rootScope.nextFeed();
         $httpBackend.flush();
 
@@ -296,6 +296,42 @@ describe("FeedController", function () {
           body: twitterResponses.initialFeed.timeline,
           pagination: twitterResponses.initialFeed.pagination,
           error: "Your account is no longer authorized. Please reauthorize the following accounts on your account page: Twitter."
+        });
+      });
+
+      it("makes a request for 25 more facebook posts when a user clicks on the load more posts link", function () {
+        $httpBackend.when('GET', '/api/feed?instagram=undefined&twitter=undefined&facebook=1407746831').respond(
+          200, {
+            timeline: facebookResponses.nextFeed,
+            status: {instagram: 204, twitter: 204, facebook: 200},
+            pagination: {facebook: facebookResponses.nextFeed.pagination}
+          }
+        );
+
+        createController();
+
+        $rootScope.posts = {
+          success: true,
+          errors: false,
+          body: facebookResponses.initialFeed.timeline,
+          pagination: facebookResponses.initialFeed.pagination
+        };
+
+        var body = $rootScope.posts.body;
+
+        for (var i = 0; i < facebookResponses.nextFeed.length; i++) {
+          body.push(facebookResponses.nextFeed[i])
+        }
+
+        $httpBackend.expectGET('/api/feed?instagram=undefined&twitter=undefined&facebook=1407746831');
+        $rootScope.nextFeed();
+        $httpBackend.flush();
+
+        expect($rootScope.posts).toEqual({
+          success: true,
+          errors: false,
+          body: body,
+          pagination: {facebook: facebookResponses.nextFeed.pagination}
         });
       });
     });

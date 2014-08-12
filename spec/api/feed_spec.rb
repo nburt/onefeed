@@ -163,7 +163,7 @@ describe "getting a user's instagram timeline" do
 
     it 'will get a facebook feed' do
       body = File.read('./spec/support/facebook_responses/timeline_response_count_2.json')
-      stub_request(:get, "https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=5").
+      stub_request(:get, 'https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=5').
         to_return(status: 200, body: body)
 
       user = create_user
@@ -174,11 +174,34 @@ describe "getting a user's instagram timeline" do
       expected_response_body = {
         timeline: Oj.load(expected_timeline),
         status: {instagram: 204, twitter: 204, facebook: 200},
-        pagination: {}
+        pagination: {facebook: '1407764111'}
       }.to_json
 
       post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
       get '/api/feed'
+
+      expect(response.status).to eq 200
+      expect(response.body).to eq expected_response_body
+    end
+
+    it 'will get the next range of facebook posts if there is a pagination id' do
+      body = File.read('./spec/support/facebook_responses/timeline_response_count_3.json')
+      stub_request(:get, 'https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=25&until=1407764111').
+        to_return(status: 200, body: body)
+
+      user = create_user
+      create_facebook_account(user)
+
+      expected_timeline = File.read('./spec/support/facebook_responses/time_formatted_timeline_response_count_3.json')
+
+      expected_response_body = {
+        timeline: Oj.load(expected_timeline)["data"],
+        status: {instagram: 204, twitter: 204, facebook: 200},
+        pagination: {facebook: "1407746831"}
+      }.to_json
+
+      post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
+      get '/api/feed?instagram=undefined&twitter=undefined&facebook=1407764111'
 
       expect(response.status).to eq 200
       expect(response.body).to eq expected_response_body
