@@ -18,5 +18,6 @@ Rails.application.routes.draw do
   get '/feed', to: 'feed#index', as: :feed
   namespace :api do
     get '/feed', to: 'feed#index'
+    get '/profile_picture', to: 'profile_pictures#show'
   end
 end

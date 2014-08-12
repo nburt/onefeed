@@ -3,7 +3,7 @@
     <ul>
       <li>
         <a href="https://www.facebook.com/app_scoped_user_id/{{post.from.id}}" target="_blank">
-          <%= image_tag("default_user_image.png", class: "profile-picture") %>
+          <%= image_tag("default_user_image.png", class: "user-profile-picture") %>
         </a>
       </li>
       <li>
@@ -14,7 +14,7 @@
       <li ng-if="post.to && post.to.data.length == 1"><%= image_tag("arrow.svg") %></li>
       <li ng-if="post.to && post.to.data.length == 1">
         <a href="https://www.facebook.com/app_scoped_user_id/{{post.to.id}}" target="_blank">
-          <%= image_tag("default_user_image.png", class: "profile-picture") %>
+          <%= image_tag("default_user_image.png", class: "friend-profile-picture") %>
         </a>
       </li>
       <li ng-if="post.to && post.to.data.length == 1">
@@ -40,10 +40,18 @@
       <li ng-if="post.source">
         <video ng-src="{{post.source}}" controls></video>
       </li>
-      <li ng-if="post.picture && !post.source"><img class="provider-image" ng-src="{{post.picture}}"/></li>
-      <li ng-if="post.story">{{post.story}}</li>
-      <li ng-if="post.message">{{post.message}}</li>
-      <li ng-if="post.caption_text && post.status_type != 'shared_story'">{{post.caption_text}}</li>
+      <li ng-if="post.picture && !post.source">
+        <img class="provider-image" ng-src="{{post.picture}}"/>
+      </li>
+      <li ng-if="post.story" ng-bind-html="post.story | linky:'_blank'">
+        {{post.story}}
+      </li>
+      <li ng-if="post.message" ng-bind-html="post.message | linky:'_blank'">
+        {{post.message}}
+      </li>
+      <li ng-if="post.caption_text && post.status_type != 'shared_story'" ng-bind-html="post.caption_text | linky:'_blank'">
+        {{post.caption_text}}
+      </li>
       <li ng-if="post.article_link && post.type == 'link'">
         <a hre="{{post.article_link}}">View Link</a>
       </li>
