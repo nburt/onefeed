@@ -35,11 +35,9 @@ class FeedResponse
 
   def pagination
     hash = {}
-    if !@instagram_body.empty? && @instagram_response.code != 400
-      hash[:instagram] = @instagram_body["pagination"]["next_max_id"]
-    end
-    hash[:twitter] = @twitter_response.body.last.id.to_s if @twitter_response.body.last
-    hash[:facebook] = parse_facebook_pagination if !facebook_body.empty?
+    hash[:instagram] = @instagram_body["pagination"]["next_max_id"] if @instagram_response.code == 200
+    hash[:twitter] = @twitter_response.body.last.id.to_s if @twitter_response.code == 200
+    hash[:facebook] = parse_facebook_pagination if @facebook_response.code == 200
     hash
   end
 

@@ -53,4 +53,38 @@ describe FeedResponse do
     expect(feed_response.pagination).to eq({instagram: "776999430264003590_1081226094", twitter: "2", facebook: "1407764111"})
   end
 
+  it 'will not assign pagination if timelines come back as nil' do
+    null_response = NullResponse.new
+    feed_response = FeedResponse.new(null_response, null_response, null_response)
+    expect(feed_response.timeline).to eq []
+    expect(feed_response.status).to eq({instagram: 204, twitter: 204, facebook: 204})
+    expect(feed_response.pagination).to eq({})
+  end
+
+  it 'knows what to do if error responses are returned' do
+    facebook_body = {
+      'error' => {
+        'message' => 'Invalid OAuth access token.',
+        'type' => 'OAuthException',
+        'code' => 190
+      }
+    }.to_json
+    facebook_response = Struct.new(:body, :code).new(facebook_body, 190)
+
+    instagram_body = {
+      'meta' => {
+        'error_type' => 'OAuthParameterException',
+        'code' => 400,
+        'error_message' => 'The access_token provided is invalid.'
+      }
+    }.to_json
+    instagram_response = Struct.new(:body, :code).new(instagram_body, 400)
+
+    twitter_response = Struct.new(:body, :code).new([], 401)
+    feed_response = FeedResponse.new(instagram_response, twitter_response, facebook_response)
+    expect(feed_response.timeline).to eq []
+    expect(feed_response.status).to eq({instagram: 400, twitter: 401, facebook: 190})
+    expect(feed_response.pagination).to eq({})
+  end
+
 end

@@ -32,4 +32,25 @@ describe Facebook::Api do
     expect(response.body).to eq body
     expect(response.code).to eq 200
   end
+
+  it 'will return an error if the users account is unauthorized' do
+    body = {
+      'error' => {
+        'message' => 'Invalid OAuth access token.',
+        'type' => 'OAuthException',
+        'code' => 190
+      }
+    }.to_json
+
+    stub_request(:get, 'https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=5').
+      to_return(status: 190, body: body)
+
+    user = create_user
+    create_facebook_account(user)
+    facebook_api = Facebook::Api.new(user)
+    response = facebook_api.feed
+
+    expect(response.body).to eq body
+    expect(response.code).to eq 190
+  end
 end
