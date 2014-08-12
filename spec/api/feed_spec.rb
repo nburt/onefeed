@@ -139,7 +139,7 @@ describe "getting a user's instagram timeline" do
       stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=26&max_id=462323298248843264').
         to_return(status: 200, body: body)
 
-      expected_timeline = TIMELINE_3.map do |post|
+      expected_timeline = TIMELINE_4.map do |post|
         post[:created_at] = "#{Time.parse(post[:created_at]).to_i}"
         post[:provider] = "twitter"
         post.stringify_keys
@@ -207,40 +207,50 @@ describe "getting a user's instagram timeline" do
       expect(response.body).to eq expected_response_body
     end
 
-    it 'will get a combined feed of instagram and twitter posts' do
+    it 'will get a combined feed of instagram, twitter, and facebook posts' do
       instagram_body = File.read('./spec/support/instagram_responses/timeline_response_count_1.json')
       twitter_body = File.read('./spec/support/twitter_responses/timeline_response_count_2.json')
+      facebook_body = File.read('./spec/support/facebook_responses/timeline_response_count_1.json')
 
-      stub_request(:get, "https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5").
+      stub_request(:get, 'https://api.instagram.com/v1/users/self/feed?access_token=mock_token&count=5').
         to_return(status: 200, body: instagram_body)
 
-      stub_request(:get, "https://api.twitter.com/1.1/statuses/home_timeline.json?count=5").
+      stub_request(:get, 'https://api.twitter.com/1.1/statuses/home_timeline.json?count=5').
         to_return(status: 200, body: twitter_body)
+
+      stub_request(:get, 'https://graph.facebook.com/v2.0/me/home?access_token=mock_token&limit=5').
+        to_return(status: 200, body: facebook_body)
 
       user = create_user
       create_instagram_account(user)
       create_twitter_account(user)
+      create_facebook_account(user)
 
       instagram_post = Oj.load(
-        File.read("./spec/support/instagram_responses/time_edited_response_count_1.json")
-      )["data"].first
-      instagram_post["provider"] = "instagram"
+        File.read('./spec/support/instagram_responses/time_edited_response_count_1.json')
+      )['data'].first
+      instagram_post['provider'] = 'instagram'
 
       twitter_timeline = Oj.load(twitter_body).map do |post|
-        post["created_at"] = "#{Time.parse(post["created_at"]).to_i}"
-        post["provider"] = "twitter"
+        post['created_at'] = "#{Time.parse(post['created_at']).to_i}"
+        post['provider'] = 'twitter'
         post
       end
+
+      facebook_post = Oj.load(
+        File.read('./spec/support/facebook_responses/time_formatted_timeline_response_count_1.json')
+      )['data'].first
 
       expected_timeline = []
       expected_timeline << twitter_timeline[0]
       expected_timeline << instagram_post
+      expected_timeline << facebook_post
       expected_timeline << twitter_timeline[1]
 
       expected_response_body = {
         timeline: expected_timeline,
-        status: {instagram: 200, twitter: 200, facebook: 204},
-        pagination: {instagram: "776999430264003590_1081226094", twitter: "462321453514240000"}
+        status: {instagram: 200, twitter: 200, facebook: 200},
+        pagination: {instagram: '776999430264003590_1081226094', twitter: '462321453514240000', facebook: '1407764111'}
       }.to_json
 
       post '/sessions', {"utf8" => "✓", "authenticity_token" => "foo", "session" => {"email" => "nate@example.com", "remember_me" => "0", "password" => "password"}, "commit" => "Login"}
