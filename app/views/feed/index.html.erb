@@ -3,7 +3,16 @@
     <p class="center failure"><%= flash[:registration_failure] %></p>
   <% end %>
   <% if current_user.accounts.empty? %>
-    <p>You don't have any accounts</p>
+    <div class="networks-container">
+      <p>
+        Click on one of the providers below or visit "My Account" to link an
+        account and get started!
+      </p>
+      <%= link_to(image_tag("instagram_logo.png", class: "network-logo"), "/auth/instagram") %>
+      <%= link_to(image_tag("twitter_logo.png", class: "network-logo"), "/auth/twitter") %>
+      <%= link_to(image_tag("facebook_logo.png", class: "network-logo"), "/auth/facebook") %>
+    </div>
+
   <% else %>
     <div ng-controller="FeedController as feed" ng-init="initialFeed()">
       <div class="feed-content-container" ng-if="posts.errors">

@@ -10,7 +10,7 @@ feature 'streaming a users feed', js: true do
       mock_auth_hash
       user = create_user
       login_user(user)
-      click_link 'My Account'
+      expect(page).to have_content 'Click on one of the providers below or visit "My Account" to link an account and get started'
       find(:xpath, "//a[contains(@href,'/auth/instagram')]").click
       expect(page).to have_content 'Unicorns do exist! #magic #unicorns #denvercountyfair'
       expect(page).to have_content 'Climbing up the steps of #SaintJosephsOratory'
@@ -59,7 +59,6 @@ feature 'streaming a users feed', js: true do
         to_return(status: 200, body: body)
       user = create_user
       login_user(user)
-      click_link 'My Account'
       find(:xpath, "//a[contains(@href,'/auth/twitter')]").click
       expect(page).to have_content 'Gillmor Gang Live 05.02.14 http://t.co/WmzFBbPKUr by @stevegillmor'
     end
@@ -90,7 +89,6 @@ feature 'streaming a users feed', js: true do
         to_return(status: 200, body: body)
       user = create_user
       login_user(user)
-      click_link 'My Account'
       find(:xpath, "//a[contains(@href,'/auth/facebook')]").click
       expect(page).to have_content 'Garden Watch: 8/11/2014 http://wp.me/p4pM8M-h0'
     end
