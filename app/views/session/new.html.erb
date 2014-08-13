@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="login-form-container">
-    <%= form_for :session, :url => {:controller => "sessions", :action => "create"} do |f| %>
+    <%= form_for :session, :url => {:controller => "session", :action => "create"} do |f| %>
       <div class="flash-messages">
         <% if flash[:login_error] %>
           <p class="center failure"><%= flash[:login_error] %></p>

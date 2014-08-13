@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe SessionsController do
+describe SessionController do
   describe "persistent sessions" do
     it 'a user is assigned a cookie if they select remember me' do
       user = create_user
