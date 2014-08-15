@@ -2,7 +2,7 @@
   App.directive('instagramPost', function () {
     return {
       restrict: 'AE',
-      templateUrl: '<%= asset_path('instagram_post.html.erb') %>'
+      templateUrl: 'assets/instagram_post.html'
     };
   });
 })();

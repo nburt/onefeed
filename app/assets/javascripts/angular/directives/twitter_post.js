@@ -2,7 +2,7 @@
   App.directive('twitterPost', function () {
     return {
       restrict: 'AE',
-      templateUrl: '<%= asset_path('twitter_post.html.erb') %>'
+      templateUrl: 'assets/twitter_post.html'
     };
   });
 })();

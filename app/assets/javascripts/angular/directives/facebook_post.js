@@ -21,7 +21,7 @@
 
     return {
       restrict: 'AE',
-      templateUrl: '<%= asset_path('facebook_post.html.erb') %>',
+      templateUrl: 'assets/facebook_post.html',
       link: getProfilePicture
     };
   }]);

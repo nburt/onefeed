@@ -3,7 +3,7 @@
     <ul>
       <li>
         <a href="https://www.facebook.com/app_scoped_user_id/{{post.from.id}}" target="_blank">
-          <%= image_tag("default_user_image.png", class: "user-profile-picture") %>
+          <img ng-src="assets/default_user_image.png" class="user-profile-picture">
         </a>
       </li>
       <li>
@@ -14,7 +14,7 @@
       <li ng-if="post.to && post.to.data.length == 1"><%= image_tag("arrow.svg") %></li>
       <li ng-if="post.to && post.to.data.length == 1">
         <a href="https://www.facebook.com/app_scoped_user_id/{{post.to.id}}" target="_blank">
-          <%= image_tag("default_user_image.png", class: "friend-profile-picture") %>
+          <img ng-src="assets/default_user_image.png" class="friend-profile-picture">
         </a>
       </li>
       <li ng-if="post.to && post.to.data.length == 1">
@@ -26,7 +26,7 @@
         <time>{{post.created_at * 1000 | fromNow}}</time>
       </li>
       <li class="network-logo-container">
-        <%= image_tag("facebook_logo.png", class: "network-logo") %>
+        <img ng-src="assets/facebook_logo.png" class="network-logo">
       </li>
     </ul>
     <div class="subheader" ng-if="post.application.name">
@@ -60,12 +60,12 @@
   <div class="post-interactive">
     <ul>
       <span ng-switch on="post">
-        <li ng-switch-when="post.comments"><%= image_tag("comment.svg") %> {{post.comments.length}}</li>
-        <li ng-switch-default><%= image_tag("comment.svg") %> 0</li>
+        <li ng-switch-when="post.comments"><img ng-src="assets/comment.svg"> {{post.comments.length}}</li>
+        <li ng-switch-default><img ng-src="assets/comment.svg"> 0</li>
       </span>
       <span ng-switch on="post">
-        <li ng-switch-when="post.likes.data"><%= image_tag("like.svg") %> {{post.likes.data.length}}</li>
-        <li ng-switch-default><%= image_tag("like.svg") %> 0</li>
+        <li ng-switch-when="post.likes.data"><img ng-src="assets/like.svg"> {{post.likes.data.length}}</li>
+        <li ng-switch-default><img ng-src="assets/like.svg"> 0</li>
       </span>
       <li><a class="main-link post-link" href="{{post.actions[0].link}}" target="_blank">View</a></li>
     </ul>

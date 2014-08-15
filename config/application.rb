@@ -28,5 +28,6 @@ module Onefeed
     # config.i18n.default_locale = :de
 
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
+
   end
 end
