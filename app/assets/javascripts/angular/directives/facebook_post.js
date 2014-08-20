@@ -21,7 +21,7 @@
 
     return {
       restrict: 'AE',
-      templateUrl: 'assets/facebook_post.html',
+      templateUrl: 'templates/facebook_post.html',
       link: getProfilePicture
     };
   }]);

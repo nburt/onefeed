@@ -4,6 +4,7 @@ App.config(['$sceDelegateProvider', function($sceDelegateProvider){
     'self',
     'https://fbcdn-video-a.akamaihd.net/**',
     'http://www.youtube.com**',
-    'https://www.youtube.com**'
+    'https://www.youtube.com**',
+    'http://vimeo.com**'
   ]);
 }]);

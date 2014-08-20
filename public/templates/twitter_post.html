@@ -16,7 +16,7 @@
         <time>{{post.created_at * 1000 | fromNow}}</time>
       </li>
       <li class="network-logo-container">
-        <img ng-src="assets/twitter_logo.png" class="network-logo">
+        <img ng-src="images/twitter_logo.png" class="network-logo">
       </li>
     </ul>
   </div>
@@ -28,8 +28,8 @@
   </div>
   <div class="post-interactive">
     <ul>
-      <li><img ng-src="assets/retweet.svg"> {{post.retweet_count}}</li>
-      <li><img ng-src="assets/like.svg"> {{post.favorite_count}}</li>
+      <li><img ng-src="images/retweet.svg"> {{post.retweet_count}}</li>
+      <li><img ng-src="images/like.svg"> {{post.favorite_count}}</li>
       <li><a class="main-link post-link" href="https://twitter.com/{{post.user.screen_name}}/status/{{post.id_str}}" target="_blank">View</a></li>
     </ul>
   </div>

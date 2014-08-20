@@ -2,7 +2,7 @@
   App.directive('twitterPost', function () {
     return {
       restrict: 'AE',
-      templateUrl: 'assets/twitter_post.html'
+      templateUrl: 'templates/twitter_post.html'
     };
   });
 })();
